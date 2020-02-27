@@ -11,12 +11,9 @@ import UIKit
 class ListingViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
 
     // MARK - Properties
-    // For UI testing
-    let locationName = ["The Shire", "Olympus Mons", "Gotham City"]
-    let locationImage = [UIImage(named: "resize-1"),UIImage(named: "resize-2"),UIImage(named: "resize-3")]
-    let locationPrice = ["$10/night", "$25/night", "$30/night"]
-    let locationDescription = ["Lots of grass", "Interstellar views", "Dark Knight glamping"]
+
     
+    let listingController = ListingController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,11 +23,17 @@ class ListingViewController: UIViewController, UICollectionViewDataSource, UICol
     // MARK: - Views
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return locationName.count
+        return listingController.locationName.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! ListingCollectionViewCell
+        
+        let locationName = listingController.locationName
+        let locationImage = listingController.locationImage
+        let locationDescription = listingController.locationDescription
+        let locationPrice = listingController.locationPrice
+        
         cell.locationName.text = locationName[indexPath.row]
         cell.locationImage.image = locationImage[indexPath.row]
         cell.locationDescription.text = locationDescription[indexPath.row]
