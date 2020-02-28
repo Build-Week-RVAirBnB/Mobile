@@ -14,6 +14,10 @@
 		63DF9CAB2407472F001FC895 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63DF9CA92407472F001FC895 /* Main.storyboard */; };
 		63DF9CAD2407473F001FC895 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63DF9CAC2407473F001FC895 /* Assets.xcassets */; };
 		63DF9CB02407473F001FC895 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63DF9CAE2407473F001FC895 /* LaunchScreen.storyboard */; };
+		63DF9CBF2408B515001FC895 /* RVenture.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 63DF9CBD2408B515001FC895 /* RVenture.xcdatamodeld */; };
+		63DF9CC12408B6F7001FC895 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DF9CC02408B6F7001FC895 /* CoreDataStack.swift */; };
+		63DF9CC32408B77B001FC895 /* Listing+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DF9CC22408B77B001FC895 /* Listing+Convenience.swift */; };
+		63DF9CC52408B969001FC895 /* ListingRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DF9CC42408B969001FC895 /* ListingRepresentation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +30,10 @@
 		63DF9CAC2407473F001FC895 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		63DF9CAF2407473F001FC895 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		63DF9CB12407473F001FC895 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		63DF9CBE2408B515001FC895 /* RVenture.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RVenture.xcdatamodel; sourceTree = "<group>"; };
+		63DF9CC02408B6F7001FC895 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		63DF9CC22408B77B001FC895 /* Listing+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Listing+Convenience.swift"; sourceTree = "<group>"; };
+		63DF9CC42408B969001FC895 /* ListingRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingRepresentation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +79,10 @@
 		63DF9CB72407496F001FC895 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				63DF9CC02408B6F7001FC895 /* CoreDataStack.swift */,
+				63DF9CC22408B77B001FC895 /* Listing+Convenience.swift */,
+				63DF9CC42408B969001FC895 /* ListingRepresentation.swift */,
+				63DF9CBD2408B515001FC895 /* RVenture.xcdatamodeld */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -191,6 +203,10 @@
 			files = (
 				63DF9CA82407472F001FC895 /* ListingViewController.swift in Sources */,
 				63DF9CA42407472F001FC895 /* AppDelegate.swift in Sources */,
+				63DF9CBF2408B515001FC895 /* RVenture.xcdatamodeld in Sources */,
+				63DF9CC52408B969001FC895 /* ListingRepresentation.swift in Sources */,
+				63DF9CC12408B6F7001FC895 /* CoreDataStack.swift in Sources */,
+				63DF9CC32408B77B001FC895 /* Listing+Convenience.swift in Sources */,
 				63DF9CA62407472F001FC895 /* SceneDelegate.swift in Sources */,
 				428D7DE2240874CD00B70EED /* ListingCollectionViewCell.swift in Sources */,
 			);
@@ -390,6 +406,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		63DF9CBD2408B515001FC895 /* RVenture.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				63DF9CBE2408B515001FC895 /* RVenture.xcdatamodel */,
+			);
+			currentVersion = 63DF9CBE2408B515001FC895 /* RVenture.xcdatamodel */;
+			path = RVenture.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 63DF9C982407472E001FC895 /* Project object */;
 }
