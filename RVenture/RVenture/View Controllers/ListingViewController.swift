@@ -11,6 +11,8 @@ import UIKit
 class ListingViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
 
     // MARK - Properties
+    let listingController = ListingController()
+    
     // For UI testing
     let locationName = ["The Shire", "Olympus Mons", "Gotham City"]
     let locationImage = [UIImage(named: "resize-1"),UIImage(named: "resize-2"),UIImage(named: "resize-3")]
@@ -53,6 +55,19 @@ class ListingViewController: UIViewController, UICollectionViewDataSource, UICol
         
         return cell
         
+    }
+    
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "DetailSegue" {
+            guard let detailVC = segue.destination as? ListingDetailViewController else { return }
+            
+            if let detailVC = segue.destination as? ListingDetailViewController {
+                detailVC.listingController = listingController
+                
+            }
+        }
     }
     
 
