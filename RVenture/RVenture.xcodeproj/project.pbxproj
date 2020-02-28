@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		423862082409B02A00644FBA /* ListingDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 423862072409B02A00644FBA /* ListingDetail.storyboard */; };
+		4238620A2409B04200644FBA /* ListingDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423862092409B04200644FBA /* ListingDetailViewController.swift */; };
 		4253AF4E2408B67300278210 /* ListingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4253AF4D2408B67300278210 /* ListingController.swift */; };
 		428D7DE2240874CD00B70EED /* ListingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428D7DE1240874CC00B70EED /* ListingCollectionViewCell.swift */; };
 		63DF9CA42407472F001FC895 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DF9CA32407472F001FC895 /* AppDelegate.swift */; };
@@ -22,6 +24,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		423862072409B02A00644FBA /* ListingDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ListingDetail.storyboard; sourceTree = "<group>"; };
+		423862092409B04200644FBA /* ListingDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListingDetailViewController.swift; sourceTree = "<group>"; };
 		4253AF4D2408B67300278210 /* ListingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ListingController.swift; path = "RVenture/View Controllers/ListingController.swift"; sourceTree = SOURCE_ROOT; };
 		428D7DE1240874CC00B70EED /* ListingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingCollectionViewCell.swift; sourceTree = "<group>"; };
 		63DF9CA02407472F001FC895 /* RVenture.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RVenture.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -100,6 +104,7 @@
 		63DF9CB9240749A1001FC895 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				423862092409B04200644FBA /* ListingDetailViewController.swift */,
 				63DF9CA72407472F001FC895 /* ListingViewController.swift */,
 			);
 			path = "View Controllers";
@@ -129,6 +134,7 @@
 			children = (
 				63DF9CAE2407473F001FC895 /* LaunchScreen.storyboard */,
 				63DF9CA92407472F001FC895 /* Main.storyboard */,
+				423862072409B02A00644FBA /* ListingDetail.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -191,6 +197,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				423862082409B02A00644FBA /* ListingDetail.storyboard in Resources */,
 				63DF9CB02407473F001FC895 /* LaunchScreen.storyboard in Resources */,
 				63DF9CAD2407473F001FC895 /* Assets.xcassets in Resources */,
 				63DF9CAB2407472F001FC895 /* Main.storyboard in Resources */,
@@ -208,6 +215,7 @@
 				63DF9CA82407472F001FC895 /* ListingViewController.swift in Sources */,
 				63DF9CA42407472F001FC895 /* AppDelegate.swift in Sources */,
 				63DF9CBF2408B515001FC895 /* RVenture.xcdatamodeld in Sources */,
+				4238620A2409B04200644FBA /* ListingDetailViewController.swift in Sources */,
 				63DF9CC52408B969001FC895 /* ListingRepresentation.swift in Sources */,
 				63DF9CC12408B6F7001FC895 /* CoreDataStack.swift in Sources */,
 				63DF9CC32408B77B001FC895 /* Listing+Convenience.swift in Sources */,
