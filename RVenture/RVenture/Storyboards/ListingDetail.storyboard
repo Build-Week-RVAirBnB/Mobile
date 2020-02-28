@@ -10,12 +10,12 @@
         <!--Listing Detail View Controller-->
         <scene sceneID="Ryn-RP-Sk1">
             <objects>
-                <viewController id="8SD-OH-uEZ" customClass="ListingDetailViewController" customModule="RVenture" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="listingDetail" id="8SD-OH-uEZ" customClass="ListingDetailViewController" customModule="RVenture" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="psE-Kp-oKh">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bpj-kj-0uK">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="resize" translatesAutoresizingMaskIntoConstraints="NO" id="bpj-kj-0uK">
                                 <rect key="frame" x="0.0" y="-8" width="414" height="512"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -79,6 +79,7 @@
     </scenes>
     <resources>
         <image name="heart" catalog="system" width="64" height="54"/>
+        <image name="resize" width="1800" height="1199"/>
         <image name="square.and.arrow.up" catalog="system" width="56" height="64"/>
         <image name="xmark" catalog="system" width="64" height="56"/>
     </resources>

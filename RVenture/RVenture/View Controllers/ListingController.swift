@@ -10,7 +10,7 @@ import UIKit
 
 class ListingController {
     
-    // For UI testing
+    // For UI testing ; update with CoreData entity
     let locationName = ["The Shire", "Olympus Mons", "Gotham City"]
     let locationImage = [UIImage(named: "resize-1"),UIImage(named: "resize-2"),UIImage(named: "resize-3")]
     let locationPrice = ["$10/night", "$25/night", "$30/night"]
