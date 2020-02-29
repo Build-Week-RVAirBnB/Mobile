@@ -23,6 +23,7 @@ class ListingViewController: UIViewController, UICollectionViewDataSource, UICol
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
     }
     
     // MARK: - Views
@@ -70,7 +71,12 @@ class ListingViewController: UIViewController, UICollectionViewDataSource, UICol
         }
     }
     
-
+    // MARK: -Functions
+    
+    @objc func handleLogout() {
+        let loginViewController = LoginViewController()
+        present(loginViewController, animated: true, completion: nil)
+    }
 
 }
 
