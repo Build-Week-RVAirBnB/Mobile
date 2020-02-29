@@ -9,6 +9,9 @@
 import UIKit
 
 class LoginViewController: UIViewController {
+    
+    let switchElement = LoginSwitch()
+    
     //MARK:- Computed Properties
     
     // Container View for login input
@@ -35,6 +38,7 @@ class LoginViewController: UIViewController {
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 24)
         return button
     }()
+    
     
     // Input Text Views and Line Separators for Name, Email Address, and Passowrd
     let nameSeparatorView: UIView = {
@@ -82,22 +86,37 @@ class LoginViewController: UIViewController {
         return imageView
     }()
     
-    
-    //MARK:- View Hierarchy
+    let isHostLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Register as a host"
+        label.textAlignment = NSTextAlignment.left
+        label.textColor = .black
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        view.addSubview(inputsContainerView)
-        view.addSubview(loginRegisterButton)
-        view.addSubview(logoImageView)
-        setupInputsContainerView()
-        setupLoginRegisterButton()
-        setupLogoImageView()
-        
+        setupView()
     }
     
     // MARK: - Functions
     
+    fileprivate func setupView() {
+        view.backgroundColor = .white
+        view.addSubview(inputsContainerView)
+        view.addSubview(loginRegisterButton)
+        view.addSubview(logoImageView)
+        view.addSubview(switchElement)
+        view.addSubview(isHostLabel)
+        setupInputsContainerView()
+        setupLoginRegisterButton()
+        setupLogoImageView()
+        setupLoginSwitch()
+        setupHostLabel()
+    }
+    
+
     
     func setupLogoImageView() {
         logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -161,6 +180,20 @@ class LoginViewController: UIViewController {
         loginRegisterButton.heightAnchor.constraint(equalToConstant: 56).isActive = true
     }
 
+    func setupLoginSwitch() {
+        switchElement.leftAnchor.constraint(equalTo: loginRegisterButton.leftAnchor).isActive = true
+        switchElement.topAnchor.constraint(equalTo: loginRegisterButton.bottomAnchor, constant: 12).isActive = true
+        switchElement.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        switchElement.widthAnchor.constraint(equalToConstant: 50).isActive = true
+
+    }
+    
+    func setupHostLabel() {
+        isHostLabel.leadingAnchor.constraint(equalTo: switchElement.trailingAnchor, constant: 12).isActive = true
+        isHostLabel.topAnchor.constraint(equalTo: loginRegisterButton.bottomAnchor, constant: 12).isActive = true
+        isHostLabel.heightAnchor.constraint(equalToConstant: 32).isActive = true
+        isHostLabel.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
+    }
 
     
     
