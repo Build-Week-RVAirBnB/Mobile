@@ -10,7 +10,8 @@ import UIKit
 
 class LoginViewController: UIViewController {
     
-    let switchElement = LoginSwitch()
+    
+    
     
     //MARK:- Computed Properties
     
@@ -94,13 +95,21 @@ class LoginViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
+    let switchElement: UISwitch = {
+        let hostSwitch = UISwitch()
+        hostSwitch.translatesAutoresizingMaskIntoConstraints = false
+        hostSwitch.tintColor = .white
+        hostSwitch.onTintColor = #colorLiteral(red: 0.4394537807, green: 0.449608624, blue: 0.1603180766, alpha: 1)
+        hostSwitch.addTarget(self, action: #selector(handleSwitch), for: .touchUpInside)
+        return hostSwitch
+    }()
 
+    //MARK:- View Hierarchy
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
     }
-    
-    // MARK: - Functions
     
     fileprivate func setupView() {
         view.backgroundColor = .white
@@ -116,7 +125,15 @@ class LoginViewController: UIViewController {
         setupHostLabel()
     }
     
-
+    // MARK: - Functions
+    
+    @objc fileprivate func handleSwitch() {
+        if switchElement.isOn {
+            print("Switch ON")
+        } else {
+            print("Switch OFF")
+        }
+    }
     
     func setupLogoImageView() {
         logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -169,8 +186,6 @@ class LoginViewController: UIViewController {
         passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor).isActive = true
         passwordTextField.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
         passwordTextField.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor, multiplier: 1/3).isActive = true
-
-
     }
     
     func setupLoginRegisterButton() {
