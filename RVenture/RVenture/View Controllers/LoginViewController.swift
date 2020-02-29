@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class LoginViewController: UIViewController {
     
@@ -28,7 +29,7 @@ class LoginViewController: UIViewController {
     }()
     
     // Login button
-    let loginRegisterButton: UIButton = {
+    lazy var loginRegisterButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = #colorLiteral(red: 0.4394537807, green: 0.449608624, blue: 0.1603180766, alpha: 1)
         button.setTitle("Register", for: .normal)
@@ -37,9 +38,41 @@ class LoginViewController: UIViewController {
         button.layer.cornerRadius = 6
         button.layer.masksToBounds = true
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 24)
+        
+        button.addTarget(self, action: #selector(handleRegister), for: .touchUpInside)
         return button
     }()
     
+    @objc func handleRegister() {
+        guard let email = emailTextField.text,
+            let password = passwordTextField.text,
+            let name = nameTextField.text else {
+            print("Form is not valid")
+            return
+        }
+        
+        Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
+            if error != nil {
+                print(error)
+                return
+            }
+            
+            guard let uid = user?.user.uid else { return }
+
+            // Saves email and password into Firebase Database, nested within "users" and user ID
+            let ref = Database.database().reference(fromURL: "https://rventure-a96cc.firebaseio.com/")
+            let usersReference = ref.child("users").child(uid)
+            let values = ["name": name, "email": email]
+            
+            usersReference.updateChildValues(values) { (userError, ref) in
+                if userError != nil {
+                    print(userError)
+                    return
+                }
+                print("saved user successfully into Firebase Database")
+            }
+        }
+    }
     
     // Input Text Views and Line Separators for Name, Email Address, and Passowrd
     let nameSeparatorView: UIView = {

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class ListingViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
 
@@ -23,6 +24,9 @@ class ListingViewController: UIViewController, UICollectionViewDataSource, UICol
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+//        let ref = Database.database().reference(fromURL: "https://rventure-a96cc.firebaseio.com/")
+//        ref.updateChildValues(["value": 123123])
+        
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
     }
     

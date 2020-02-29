@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B087D945166A5A593481A02 /* Pods_RVenture.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E63914E8FD30EB17654D6F0D /* Pods_RVenture.framework */; };
+		42257F35240B0E3300E1BD4D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 42257F34240B0E3300E1BD4D /* GoogleService-Info.plist */; };
 		423862082409B02A00644FBA /* ListingDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 423862072409B02A00644FBA /* ListingDetail.storyboard */; };
 		4238620A2409B04200644FBA /* ListingDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423862092409B04200644FBA /* ListingDetailViewController.swift */; };
 		424389E72409BBD70008902F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424389E62409BBD70008902F /* LoginViewController.swift */; };
@@ -25,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		42257F34240B0E3300E1BD4D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		423862072409B02A00644FBA /* ListingDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ListingDetail.storyboard; sourceTree = "<group>"; };
 		423862092409B04200644FBA /* ListingDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListingDetailViewController.swift; sourceTree = "<group>"; };
 		424389E62409BBD70008902F /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -42,6 +45,9 @@
 		63DF9CC02408B6F7001FC895 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		63DF9CC22408B77B001FC895 /* Listing+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Listing+Convenience.swift"; sourceTree = "<group>"; };
 		63DF9CC42408B969001FC895 /* ListingRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingRepresentation.swift; sourceTree = "<group>"; };
+		75BF1A09527E40054B72A1BE /* Pods-RVenture.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RVenture.debug.xcconfig"; path = "Target Support Files/Pods-RVenture/Pods-RVenture.debug.xcconfig"; sourceTree = "<group>"; };
+		CA73F07BF6BEC6D6C19D1C46 /* Pods-RVenture.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RVenture.release.xcconfig"; path = "Target Support Files/Pods-RVenture/Pods-RVenture.release.xcconfig"; sourceTree = "<group>"; };
+		E63914E8FD30EB17654D6F0D /* Pods_RVenture.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RVenture.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B087D945166A5A593481A02 /* Pods_RVenture.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,6 +67,8 @@
 			children = (
 				63DF9CA22407472F001FC895 /* RVenture */,
 				63DF9CA12407472F001FC895 /* Products */,
+				EDFA147FA0FF7628C905E30F /* Pods */,
+				D53B0BF5B2A0FFA5321B7BE9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -124,6 +133,7 @@
 		63DF9CBB24074B7F001FC895 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				42257F34240B0E3300E1BD4D /* GoogleService-Info.plist */,
 				63DF9CA32407472F001FC895 /* AppDelegate.swift */,
 				63DF9CAC2407473F001FC895 /* Assets.xcassets */,
 				63DF9CB12407473F001FC895 /* Info.plist */,
@@ -142,6 +152,24 @@
 			path = Storyboards;
 			sourceTree = "<group>";
 		};
+		D53B0BF5B2A0FFA5321B7BE9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E63914E8FD30EB17654D6F0D /* Pods_RVenture.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EDFA147FA0FF7628C905E30F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				75BF1A09527E40054B72A1BE /* Pods-RVenture.debug.xcconfig */,
+				CA73F07BF6BEC6D6C19D1C46 /* Pods-RVenture.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -149,9 +177,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 63DF9CB42407473F001FC895 /* Build configuration list for PBXNativeTarget "RVenture" */;
 			buildPhases = (
+				787A72316E52E0F86C418D6B /* [CP] Check Pods Manifest.lock */,
 				63DF9C9C2407472F001FC895 /* Sources */,
 				63DF9C9D2407472F001FC895 /* Frameworks */,
 				63DF9C9E2407472F001FC895 /* Resources */,
+				485C59F256654B873A366EB7 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -202,12 +232,55 @@
 			files = (
 				423862082409B02A00644FBA /* ListingDetail.storyboard in Resources */,
 				63DF9CB02407473F001FC895 /* LaunchScreen.storyboard in Resources */,
+				42257F35240B0E3300E1BD4D /* GoogleService-Info.plist in Resources */,
 				63DF9CAD2407473F001FC895 /* Assets.xcassets in Resources */,
 				63DF9CAB2407472F001FC895 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		485C59F256654B873A366EB7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RVenture/Pods-RVenture-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RVenture/Pods-RVenture-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RVenture/Pods-RVenture-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		787A72316E52E0F86C418D6B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RVenture-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		63DF9C9C2407472F001FC895 /* Sources */ = {
@@ -366,6 +439,7 @@
 		};
 		63DF9CB52407473F001FC895 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 75BF1A09527E40054B72A1BE /* Pods-RVenture.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -375,7 +449,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.gerardohernandez.RVenture;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lambdaSchool.RVenture;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -384,6 +458,7 @@
 		};
 		63DF9CB62407473F001FC895 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CA73F07BF6BEC6D6C19D1C46 /* Pods-RVenture.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -393,7 +468,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.gerardohernandez.RVenture;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lambdaSchool.RVenture;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

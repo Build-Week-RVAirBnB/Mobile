@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>865431447566-m0k78imfugj1orm2sqf19dneaj08ks02.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.865431447566-m0k78imfugj1orm2sqf19dneaj08ks02</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCr9c_niDtCV1_6qshJaznrbL9qZiJRrmM</string>
+	<key>GCM_SENDER_ID</key>
+	<string>865431447566</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.lambdaSchool.RVenture</string>
+	<key>PROJECT_ID</key>
+	<string>rventure-a96cc</string>
+	<key>STORAGE_BUCKET</key>
+	<string>rventure-a96cc.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:865431447566:ios:849fc5f0a13486d05df45f</string>
+	<key>DATABASE_URL</key>
+	<string>https://rventure-a96cc.firebaseio.com</string>
+</dict>
+</plist>
