@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class ListingViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
 
@@ -23,7 +24,16 @@ class ListingViewController: UIViewController, UICollectionViewDataSource, UICol
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+//        let ref = Database.database().reference(fromURL: "https://rventure-a96cc.firebaseio.com/")
+//        ref.updateChildValues(["value": 123123])
+        
+        // user not logged in
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
+        if Auth.auth().currentUser?.uid == nil {
+            perform(#selector(handleLogout), with: nil, afterDelay: 0)
+            handleLogout()
+        }
+        
     }
     
     // MARK: - Views
@@ -53,30 +63,31 @@ class ListingViewController: UIViewController, UICollectionViewDataSource, UICol
         cell.layer.masksToBounds = false
         cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: cell.contentView.layer.cornerRadius).cgPath
         
-        
         return cell
-        
     }
-    
-    
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "DetailSegue" {
             guard let detailVC = segue.destination as? ListingDetailViewController else { return }
             
             if let detailVC = segue.destination as? ListingDetailViewController {
                 detailVC.listingController = listingController
-                
             }
         }
     }
     
-    // MARK: -Functions
+    // MARK: - Functions
     
     @objc func handleLogout() {
+        
+        do {
+            try Auth.auth().signOut()
+        } catch let logoutError {
+            print(logoutError)
+        }
+        
         let loginViewController = LoginViewController()
         present(loginViewController, animated: true, completion: nil)
     }
-
 }
 
