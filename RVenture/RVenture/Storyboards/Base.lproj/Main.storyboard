@@ -102,11 +102,31 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="bNT-ul-erK"/>
+                    <navigationItem key="navigationItem" id="bNT-ul-erK">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="L57-X9-SEh">
+                            <connections>
+                                <action selector="addNewListingTapped:" destination="BYZ-38-t0r" id="YGr-ZR-iII"/>
+                                <segue destination="2TG-qY-uOR" kind="show" identifier="AddListingSegue" id="fsB-WY-dmD"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="addListingButton" destination="L57-X9-SEh" id="qRd-53-X0s"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1047.8260869565217" y="122.54464285714285"/>
+        </scene>
+        <!--AddListing-->
+        <scene sceneID="20L-eR-vEe">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="AddListing" storyboardName="AddListing" referencedIdentifier="AddListing" id="2TG-qY-uOR" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="jre-iu-uB9"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5pl-0q-SXv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1641" y="22"/>
         </scene>
         <!--listingDetail-->
         <scene sceneID="9Tt-ho-JCD">
@@ -116,7 +136,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OD3-LZ-4CJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1842.753623188406" y="-40.178571428571423"/>
+            <point key="canvasLocation" x="1598" y="223"/>
         </scene>
         <!--Home-->
         <scene sceneID="yGr-kb-fsV">

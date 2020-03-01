@@ -10,7 +10,9 @@ import UIKit
 import Firebase
 
 class ListingViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
-
+    
+    @IBOutlet weak var addListingButton: UIBarButtonItem!
+    
     // MARK - Properties
     let listingController = ListingController()
     
@@ -89,5 +91,9 @@ class ListingViewController: UIViewController, UICollectionViewDataSource, UICol
         let loginViewController = LoginViewController()
         present(loginViewController, animated: true, completion: nil)
     }
+    
+    @IBAction func addNewListingTapped(_ sender: Any) {
+    }
+    
 }
 

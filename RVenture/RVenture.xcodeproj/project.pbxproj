@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -14,6 +14,8 @@
 		424389E72409BBD70008902F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424389E62409BBD70008902F /* LoginViewController.swift */; };
 		4253AF4E2408B67300278210 /* ListingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4253AF4D2408B67300278210 /* ListingController.swift */; };
 		428D7DE2240874CD00B70EED /* ListingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428D7DE1240874CC00B70EED /* ListingCollectionViewCell.swift */; };
+		42A39BFD240C7D110014B678 /* AddListing.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42A39BFC240C7D110014B678 /* AddListing.storyboard */; };
+		42A39BFF240C7D390014B678 /* AddListingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A39BFE240C7D390014B678 /* AddListingViewController.swift */; };
 		63DF9CA42407472F001FC895 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DF9CA32407472F001FC895 /* AppDelegate.swift */; };
 		63DF9CA62407472F001FC895 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DF9CA52407472F001FC895 /* SceneDelegate.swift */; };
 		63DF9CA82407472F001FC895 /* ListingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DF9CA72407472F001FC895 /* ListingViewController.swift */; };
@@ -33,6 +35,8 @@
 		424389E62409BBD70008902F /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		4253AF4D2408B67300278210 /* ListingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ListingController.swift; path = "RVenture/View Controllers/ListingController.swift"; sourceTree = SOURCE_ROOT; };
 		428D7DE1240874CC00B70EED /* ListingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingCollectionViewCell.swift; sourceTree = "<group>"; };
+		42A39BFC240C7D110014B678 /* AddListing.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddListing.storyboard; sourceTree = "<group>"; };
+		42A39BFE240C7D390014B678 /* AddListingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddListingViewController.swift; sourceTree = "<group>"; };
 		63DF9CA02407472F001FC895 /* RVenture.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RVenture.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63DF9CA32407472F001FC895 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		63DF9CA52407472F001FC895 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -118,6 +122,7 @@
 				423862092409B04200644FBA /* ListingDetailViewController.swift */,
 				63DF9CA72407472F001FC895 /* ListingViewController.swift */,
 				424389E62409BBD70008902F /* LoginViewController.swift */,
+				42A39BFE240C7D390014B678 /* AddListingViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -148,6 +153,7 @@
 				63DF9CAE2407473F001FC895 /* LaunchScreen.storyboard */,
 				63DF9CA92407472F001FC895 /* Main.storyboard */,
 				423862072409B02A00644FBA /* ListingDetail.storyboard */,
+				42A39BFC240C7D110014B678 /* AddListing.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -166,7 +172,6 @@
 				75BF1A09527E40054B72A1BE /* Pods-RVenture.debug.xcconfig */,
 				CA73F07BF6BEC6D6C19D1C46 /* Pods-RVenture.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -233,6 +238,7 @@
 				423862082409B02A00644FBA /* ListingDetail.storyboard in Resources */,
 				63DF9CB02407473F001FC895 /* LaunchScreen.storyboard in Resources */,
 				42257F35240B0E3300E1BD4D /* GoogleService-Info.plist in Resources */,
+				42A39BFD240C7D110014B678 /* AddListing.storyboard in Resources */,
 				63DF9CAD2407473F001FC895 /* Assets.xcassets in Resources */,
 				63DF9CAB2407472F001FC895 /* Main.storyboard in Resources */,
 			);
@@ -298,6 +304,7 @@
 				63DF9CA62407472F001FC895 /* SceneDelegate.swift in Sources */,
 				428D7DE2240874CD00B70EED /* ListingCollectionViewCell.swift in Sources */,
 				424389E72409BBD70008902F /* LoginViewController.swift in Sources */,
+				42A39BFF240C7D390014B678 /* AddListingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
