@@ -9,11 +9,9 @@
 import UIKit
 import Firebase
 
+
 class LoginViewController: UIViewController {
-    
-    
-    
-    
+
     //MARK:- Computed Properties
     
     // Container View for login input
@@ -44,9 +42,11 @@ class LoginViewController: UIViewController {
     }()
     
     @objc func handleRegister() {
+        
         guard let email = emailTextField.text,
             let password = passwordTextField.text,
-            let name = nameTextField.text else {
+            let name = nameTextField.text,
+            let accountType = isHost else {
             print("Form is not valid")
             return
         }
@@ -59,17 +59,17 @@ class LoginViewController: UIViewController {
             
             guard let uid = user?.user.uid else { return }
 
-            // Saves email and password into Firebase Database, nested within "users" and user ID
+            // Saves email, password, and account type into Firebase Database, nested within "users" and user ID
             let ref = Database.database().reference(fromURL: "https://rventure-a96cc.firebaseio.com/")
             let usersReference = ref.child("users").child(uid)
-            let values = ["name": name, "email": email]
+            let values = ["name": name, "email": email, "Account Type": accountType]
             
             usersReference.updateChildValues(values) { (userError, ref) in
                 if userError != nil {
                     print(userError)
                     return
                 }
-                print("saved user successfully into Firebase Database")
+                print("Saved user successfully into Firebase Database")
             }
         }
     }
@@ -129,7 +129,7 @@ class LoginViewController: UIViewController {
         return label
     }()
     
-    let switchElement: UISwitch = {
+    let isHostSwitch: UISwitch = {
         let hostSwitch = UISwitch()
         hostSwitch.translatesAutoresizingMaskIntoConstraints = false
         hostSwitch.tintColor = .white
@@ -149,7 +149,7 @@ class LoginViewController: UIViewController {
         view.addSubview(inputsContainerView)
         view.addSubview(loginRegisterButton)
         view.addSubview(logoImageView)
-        view.addSubview(switchElement)
+        view.addSubview(isHostSwitch)
         view.addSubview(isHostLabel)
         setupInputsContainerView()
         setupLoginRegisterButton()
@@ -161,12 +161,16 @@ class LoginViewController: UIViewController {
     // MARK: - Functions
     
     @objc fileprivate func handleSwitch() {
-        if switchElement.isOn {
+        if isHostSwitch.isOn {
             print("Switch ON")
+            isHost = "Landowner"
         } else {
             print("Switch OFF")
+            isHost = "Normal"
         }
     }
+    
+    var isHost: String? = "RV Owner"
     
     func setupLogoImageView() {
         logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -229,15 +233,15 @@ class LoginViewController: UIViewController {
     }
 
     func setupLoginSwitch() {
-        switchElement.leftAnchor.constraint(equalTo: loginRegisterButton.leftAnchor).isActive = true
-        switchElement.topAnchor.constraint(equalTo: loginRegisterButton.bottomAnchor, constant: 12).isActive = true
-        switchElement.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        switchElement.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        isHostSwitch.leftAnchor.constraint(equalTo: loginRegisterButton.leftAnchor).isActive = true
+        isHostSwitch.topAnchor.constraint(equalTo: loginRegisterButton.bottomAnchor, constant: 12).isActive = true
+        isHostSwitch.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        isHostSwitch.widthAnchor.constraint(equalToConstant: 50).isActive = true
 
     }
     
     func setupHostLabel() {
-        isHostLabel.leadingAnchor.constraint(equalTo: switchElement.trailingAnchor, constant: 12).isActive = true
+        isHostLabel.leadingAnchor.constraint(equalTo: isHostSwitch.trailingAnchor, constant: 12).isActive = true
         isHostLabel.topAnchor.constraint(equalTo: loginRegisterButton.bottomAnchor, constant: 12).isActive = true
         isHostLabel.heightAnchor.constraint(equalToConstant: 32).isActive = true
         isHostLabel.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
