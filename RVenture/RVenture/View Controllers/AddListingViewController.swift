@@ -10,6 +10,17 @@ import UIKit
 
 class AddListingViewController: UIViewController {
 
+    @IBOutlet weak var listingNameText: UITextField!
+    
+    @IBOutlet weak var listingDescriptionText: UITextField!
+    
+    @IBOutlet weak var listingPriceText: UITextField!
+    @IBOutlet weak var listingLocationText: UITextField!
+    @IBOutlet weak var listingDatePicker: UIDatePicker!
+    @IBOutlet weak var locationImage: UIImageView!
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

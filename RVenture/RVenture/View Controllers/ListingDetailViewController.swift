@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class ListingDetailViewController: UIViewController {
     
@@ -17,12 +18,11 @@ class ListingDetailViewController: UIViewController {
     @IBOutlet weak var locationName: UILabel!
     @IBOutlet weak var locationDescription: UILabel!
     @IBOutlet weak var locationPrice: UILabel!
+    @IBOutlet weak var datesLabel: UILabel!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
-    
-
 }

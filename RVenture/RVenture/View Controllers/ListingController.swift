@@ -33,7 +33,7 @@ class ListingController {
     let locationPrice = ["$10/night", "$25/night", "$30/night"]
     let locationDescription = ["Lots of grass", "Interstellar views", "Dark Knight glamping"]
     
-    
+    // MARK: - Properties
     var searchedListings: [ListingRepresentation] = []
     
     init() {
@@ -237,7 +237,7 @@ class ListingController {
         }
     }
     
-    
+    //MARK: - Private 
     
     private func update(listing: Listing, with representation: ListingRepresentation) {
         listing.listingName = representation.listingName
