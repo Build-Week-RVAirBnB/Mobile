@@ -1,0 +1,6 @@
+framework module Pods_RVenture {
+  umbrella header "Pods-RVenture-umbrella.h"
+
+  export *
+  module * { export * }
+}
