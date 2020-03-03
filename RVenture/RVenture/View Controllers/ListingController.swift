@@ -83,12 +83,12 @@ class ListingController {
     func fetchListingsFromServer(completion: @escaping CompletionHandler = { _ in }) {
         let requestURL = baseURL.appendingPathComponent("Listing").appendingPathComponent("json")
         var request = URLRequest(url: requestURL)
-        request.httpMethod = HTTPMethod.post.rawValue
+        request.httpMethod = HTTPMethod.get.rawValue
         
         
         URLSession.shared.dataTask(with: requestURL) { (data, _, error) in
             guard error == nil else {
-                print("Erory fetching listings: \(error!)")
+                print("Error fetching listings: \(error!)")
                 DispatchQueue.main.async {
                     completion(error)
                 }
@@ -208,6 +208,37 @@ class ListingController {
         
     }
     
+    
+    func deleteListingFromServer(_ listing: Listing, completion: @escaping CompletionHandler = { _ in }) {
+        
+        CoreDataStack.shared.mainContext.perform {
+            guard let uuid = listing.listingId else {
+                completion(NSError())
+                return
+            }
+            
+            let requestURL = baseURL.appendingPathComponent("Listing").appendingPathComponent(uuid.uuidString).appendingPathExtension("json")
+            var request = URLRequest(url: requestURL)
+            request.httpMethod = HTTPMethod.delete.rawValue
+            
+            URLSession.shared.dataTask(with: request) { (_, _, error) in
+                guard error == nil else {
+                    print("Error deleting listing: \(error!)")
+                    DispatchQueue.main.async {
+                        completion(error)
+                    }
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    completion(nil)
+                }
+            }.resume()
+        }
+    }
+    
+    
+    
     private func update(listing: Listing, with representation: ListingRepresentation) {
         listing.listingName = representation.listingName
         listing.listingDate = representation.listingDate
@@ -239,31 +270,11 @@ class ListingController {
         createListing(listingName: listingName, listingDate: listingDate, listingDescription: listingDescription, listingLocation: listingLocation, listingPrice: listingPrice, listingPhoto: listingPhoto, listingId: listingId)
     }
     
-    func deleteListingFromServer(_ listing: Listing, completion: @escaping CompletionHandler = { _ in }) {
-        
-        CoreDataStack.shared.mainContext.perform {
-            guard let uuid = listing.listingId else {
-                completion(NSError())
-                return
-            }
-            
-            let requestURL = baseURL.appendingPathComponent("Listing").appendingPathComponent(uuid.uuidString).appendingPathExtension("json")
-            var request = URLRequest(url: requestURL)
-            request.httpMethod = HTTPMethod.delete.rawValue
-            
-            URLSession.shared.dataTask(with: request) { (_, _, error) in
-                guard error == nil else {
-                    print("Error deleting listing: \(error!)")
-                    DispatchQueue.main.async {
-                        completion(error)
-                    }
-                    return
-                }
-                
-                DispatchQueue.main.async {
-                    completion(nil)
-                }
-            }.resume()
-        }
+    
+    func delete(_ listing: Listing) {
+        let moc = CoreDataStack.shared.mainContext
+        moc.delete(listing)
+        deleteListingFromServer(listing)
     }
+
 }
