@@ -16,6 +16,7 @@
 		428D7DE2240874CD00B70EED /* ListingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428D7DE1240874CC00B70EED /* ListingCollectionViewCell.swift */; };
 		42A39BFD240C7D110014B678 /* AddListing.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42A39BFC240C7D110014B678 /* AddListing.storyboard */; };
 		42A39BFF240C7D390014B678 /* AddListingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A39BFE240C7D390014B678 /* AddListingViewController.swift */; };
+		6322FE6624104A0200898C9E /* DatabaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6322FE6524104A0100898C9E /* DatabaseHelper.swift */; };
 		63DF9CA42407472F001FC895 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DF9CA32407472F001FC895 /* AppDelegate.swift */; };
 		63DF9CA62407472F001FC895 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DF9CA52407472F001FC895 /* SceneDelegate.swift */; };
 		63DF9CA82407472F001FC895 /* ListingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DF9CA72407472F001FC895 /* ListingViewController.swift */; };
@@ -37,6 +38,7 @@
 		428D7DE1240874CC00B70EED /* ListingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingCollectionViewCell.swift; sourceTree = "<group>"; };
 		42A39BFC240C7D110014B678 /* AddListing.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddListing.storyboard; sourceTree = "<group>"; };
 		42A39BFE240C7D390014B678 /* AddListingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddListingViewController.swift; sourceTree = "<group>"; };
+		6322FE6524104A0100898C9E /* DatabaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseHelper.swift; sourceTree = "<group>"; };
 		63DF9CA02407472F001FC895 /* RVenture.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RVenture.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63DF9CA32407472F001FC895 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		63DF9CA52407472F001FC895 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				4253AF4D2408B67300278210 /* ListingController.swift */,
+				6322FE6524104A0100898C9E /* DatabaseHelper.swift */,
 			);
 			path = "Model Controller";
 			sourceTree = "<group>";
@@ -305,6 +308,7 @@
 				428D7DE2240874CD00B70EED /* ListingCollectionViewCell.swift in Sources */,
 				424389E72409BBD70008902F /* LoginViewController.swift in Sources */,
 				42A39BFF240C7D390014B678 /* AddListingViewController.swift in Sources */,
+				6322FE6624104A0200898C9E /* DatabaseHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

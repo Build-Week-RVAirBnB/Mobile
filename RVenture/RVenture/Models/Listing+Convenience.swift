@@ -8,53 +8,51 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 extension Listing {
     
     var listingRepresentation: ListingRepresentation? {
-        guard let listingName = listingName,
-        let listingLocation = listingLocation,
-        let listingPhoto = listingPhoto,
-        let listingDate = listingDate else { return nil}
+        guard let name = name,
+        let date = date else { return nil}
         
-        return ListingRepresentation(listingName: listingName,
-                                     listingDescription: listingDescription,
-                                     listingLocation: listingLocation,
-                                     listingPrice: listingPrice, listingPhoto: listingPhoto, listingDate: listingDate)
+        return ListingRepresentation(name: name,
+                                     descriptions: description,
+                                     price: price, date: date)
     }
     
     @discardableResult
-    convenience init(listingId: UUID = UUID(),
-                     listingName: String,
-                     listingDescription: String?,
-                     listingLocation: String,
-                     listingPrice: Double,
-                     listingPhoto: String,
-                     listingDate: Date,
+    convenience init(name: String,
+                     descriptions: String?,
+                     price: Double,
+                     identifier: UUID = UUID(),
+                     date: Date,
                      context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         self.init(context: context)
-        self.listingId = listingId
-        self.listingName = listingName
-        self.listingDescription = listingDescription
-        self.listingPhoto = listingPhoto
-        self.listingDate = listingDate
-        self.listingLocation = listingLocation
-        self.listingPrice = listingPrice
+        self.identifier = identifier
+        self.name = name
+        self.descriptions = descriptions
+        self.date = date
+        self.price = price
       
     }
     
     @discardableResult
     convenience init?(listingRepresentation: ListingRepresentation,
                      context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
-        let listingId = listingRepresentation.listingId ?? UUID()
         
-        self.init(listingId: listingId,
-                  listingName: listingRepresentation.listingName,
-                  listingDescription: listingRepresentation.listingDescription,
-                  listingLocation: listingRepresentation.listingLocation,
-                  listingPrice: listingRepresentation.listingPrice,
-                  listingPhoto: listingRepresentation.listingPhoto,
-                  listingDate: listingRepresentation.listingDate,
+        let identifier = listingRepresentation.identifier ?? UUID()
+        let date = listingRepresentation.date ?? Date()
+        
+        let image = UIImage()
+        
+        let listingDate = listingRepresentation.date ?? Date()
+        
+        self.init(name: listingRepresentation.name,
+                  descriptions: listingRepresentation.descriptions,
+                  price: listingRepresentation.price,
+                  identifier: identifier,
+                  date: listingDate,
                   context: context)
                     
         }
