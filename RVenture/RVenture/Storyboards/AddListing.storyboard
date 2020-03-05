@@ -17,6 +17,10 @@
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="resize" translatesAutoresizingMaskIntoConstraints="NO" id="ky4-EU-wC6">
                                 <rect key="frame" x="0.0" y="-813.5" width="414" height="1199"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="agd-aa-zqb" appends="YES" id="KD2-oQ-qDr"/>
+                                </connections>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="27" translatesAutoresizingMaskIntoConstraints="NO" id="VPq-dC-SgV">
                                 <rect key="frame" x="8" y="405.5" width="320" height="446.5"/>
@@ -69,13 +73,18 @@
                     <connections>
                         <outlet property="datePicker" destination="3rv-nd-dYG" id="3Bp-1l-MVi"/>
                         <outlet property="descriptionTextField" destination="Egq-Rk-YUD" id="YZS-fX-Isc"/>
-                        <outlet property="imageView" destination="ky4-EU-wC6" id="khM-3I-nKG"/>
+                        <outlet property="imageView" destination="ky4-EU-wC6" id="bjm-hy-KGJ"/>
                         <outlet property="nameTextField" destination="USC-za-oDh" id="ml5-6a-dd2"/>
                         <outlet property="priceTextField" destination="s4g-KS-7yz" id="wjB-RQ-gp4"/>
                         <outlet property="saveButton" destination="tsQ-TD-Zhv" id="oI4-yM-p7Y"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eJP-kO-Gfh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="agd-aa-zqb">
+                    <connections>
+                        <action selector="didTapImageView:" destination="MU7-Dc-inM" id="dEq-X9-HaP"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="66.666666666666671" y="140.625"/>
         </scene>

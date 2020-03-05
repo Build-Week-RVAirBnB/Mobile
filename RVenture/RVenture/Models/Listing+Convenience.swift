@@ -15,10 +15,8 @@ extension Listing {
     var listingRepresentation: ListingRepresentation? {
         guard let name = name,
         let description = descriptions else { return nil}
-        
-        return ListingRepresentation(name: name,
-                                     descriptions: description,
-                                     price: price, date: date)
+        let imagePath = ""
+        return ListingRepresentation(name: name, description: description, price: price, imagePath: imagePath)
     }
     
     @discardableResult
@@ -46,7 +44,7 @@ extension Listing {
         let listingDate = listingRepresentation.date ?? Date()
         
         self.init(name: listingRepresentation.name,
-                  descriptions: listingRepresentation.descriptions,
+                  descriptions: listingRepresentation.description,
                   price: listingRepresentation.price,
                   identifier: identifier,
                   date: listingDate,

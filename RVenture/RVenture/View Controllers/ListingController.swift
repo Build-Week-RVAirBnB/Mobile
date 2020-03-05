@@ -247,7 +247,7 @@ class ListingController {
     private func update(listing: Listing, with representation: ListingRepresentation) {
         listing.name = representation.name
         listing.date = representation.date
-        listing.descriptions = representation.descriptions
+        listing.descriptions = representation.description
         listing.price = representation.price
         listing.identifier = representation.identifier
         
@@ -265,7 +265,7 @@ class ListingController {
     func createListing(from listingRepresentation: ListingRepresentation) {
         let name = listingRepresentation.name
         let date = listingRepresentation.date
-        let descriptions = listingRepresentation.descriptions ?? ""
+        let descriptions = listingRepresentation.description ?? ""
         let price = listingRepresentation.price
         let identifier = listingRepresentation.identifier ?? UUID()
        createListing(name: name, date: date, description: descriptions, price: price, identifier: identifier)
