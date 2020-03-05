@@ -26,17 +26,16 @@ enum NetworkError: Error {
 let baseURL = URL(string: "https://rventure-listings.firebaseio.com/")!
 
 class ListingController {
-
+    
     typealias CompletionHandler = (Error?) -> Void
-
+    
     init() {
         fetchListingsFromServer()
     }
     
-    // MARK: - Fetch
     func fetchListingsFromServer(completion: @escaping CompletionHandler = { _ in }) {
         let requestURL = baseURL.appendingPathExtension("json")
-    
+        
         URLSession.shared.dataTask(with: requestURL) { (data, _, error) in
             guard error == nil else {
                 print("Error fetching listings: \(error!)")
@@ -69,7 +68,44 @@ class ListingController {
         }.resume()
     }
     
-    // MARK:- Update
+    func sendListingToServer(listing: Listing, completion: @escaping CompletionHandler = { _ in }) {
+        let uuid = listing.identifier ?? UUID()
+        let requestURL = baseURL.appendingPathComponent(uuid.uuidString).appendingPathExtension("json")
+        var request = URLRequest(url: requestURL)
+        request.httpMethod = "PUT"
+        
+        do {
+            guard var representation = listing.listingRepresentation else {
+                completion(NSError())
+                return
+            }
+            representation.identifier = uuid.uuidString
+            listing.identifier = uuid
+            try saveToPersistentStore()
+            request.httpBody = try JSONEncoder().encode(representation)
+        } catch {
+            print("Error encoding tasks: \(listing): \(error)")
+            completion(error)
+            return
+        }
+        
+        URLSession.shared.dataTask(with: request) { (data, _, error) in
+            guard error == nil else {
+                print("Error PUTting task to server")
+                DispatchQueue.main.async {
+                    completion(error)
+                }
+                
+                return
+            }
+            
+            DispatchQueue.main.async {
+                completion(nil)
+            }
+        }.resume()
+    }
+    
+    
     
     func updateListings(with representations: [ListingRepresentation]) throws {
         let listingsWithID = representations.filter { $0.identifier != nil}
@@ -112,5 +148,5 @@ class ListingController {
         let moc = CoreDataStack.shared.mainContext
         try moc.save()
     }
-
+    
 }

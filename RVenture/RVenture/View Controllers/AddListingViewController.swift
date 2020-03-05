@@ -20,7 +20,7 @@ class AddListingViewController: UIViewController {
     @IBOutlet weak var locationImage: UIImageView!
     
     var listing: Listing?
-    
+    var listingController: ListingController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,14 +30,24 @@ class AddListingViewController: UIViewController {
     
 
     @IBAction func saveListing(_ sender: Any) {
-        guard let name = listingNameText.text,
+        guard let name = listingNameText.text, 
             !name.isEmpty else { return }
         let description = listingDescriptionText.text
         let price = listingPriceText.text
         let location = listingLocationText.text
         
+        if let listing = listing {
+            listing.listingName = name
+            listing.listingDescription = description
+            listing.listingPrice = price
+            listingController?.sendListingToServer(listing: listing)
+        } else {
+            let listing = Listing(listingName: name, listingDescription: description!, listingPrice: price!)
+            listingController?.sendListingToServer(listing: listing)
+        }
+        
         // Create new listing
-        let _ = Listing(listingName: name, listingDescription: description!, listingPrice: price!)
+
    
         do {
             let moc = CoreDataStack.shared.mainContext

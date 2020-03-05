@@ -99,7 +99,10 @@ class ListingViewController: UIViewController, UICollectionViewDataSource, UICol
         if segue.identifier == "DetailSegue" {
             let selectedIndexPath = sender as? NSIndexPath
             let detailVC = segue.destination as? ListingDetailViewController
-            
+        }
+        
+        if let addVC = segue.destination as? AddListingViewController {
+            addVC.listingController = listingController
         }
     }
     
