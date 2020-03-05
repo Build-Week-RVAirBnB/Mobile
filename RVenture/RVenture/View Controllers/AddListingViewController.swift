@@ -19,6 +19,7 @@ class AddListingViewController: UIViewController {
     @IBOutlet weak var listingDatePicker: UIDatePicker!
     @IBOutlet weak var locationImage: UIImageView!
     
+    var listing: Listing?
     
     
     override func viewDidLoad() {
@@ -28,14 +29,24 @@ class AddListingViewController: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func saveListing(_ sender: Any) {
+        guard let name = listingNameText.text,
+            !name.isEmpty else { return }
+        let description = listingDescriptionText.text
+        let price = listingPriceText.text
+        let location = listingLocationText.text
+        
+        // Create new listing
+        let _ = Listing(listingName: name, listingDescription: description!, listingPrice: price!)
+   
+        do {
+            let moc = CoreDataStack.shared.mainContext
+            try moc.save()
+        } catch {
+            print("Error saving Listing: \(error)")
+        }
+        
+        navigationController?.popViewController(animated: true)
     }
-    */
-
+    
 }

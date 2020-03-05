@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:RVenture/Listing+CoreDataClass.swift">
+   </FileRef>
+   <FileRef
+      location = "group:RVenture/Listing+CoreDataProperties.swift">
+   </FileRef>
+   <FileRef
       location = "group:RVenture.xcodeproj">
    </FileRef>
    <FileRef

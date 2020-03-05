@@ -12,9 +12,9 @@ import Foundation
 struct ListingRepresentation: Equatable, Codable {
     var listingId: UUID?
     let listingName: String
-    let listingDescription: String?
+    let listingDescription: String
     let listingLocation: String
-    let listingPrice: Double
+    let listingPrice: String
     let listingPhoto: String
     let listingDate: Date
     

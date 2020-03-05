@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import CoreData
 
 class ListingViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
@@ -17,43 +18,50 @@ class ListingViewController: UIViewController, UICollectionViewDataSource, UICol
     let listingController = ListingController()
     
     // For UI testing
-    let locationName = ["The Shire", "Olympus Mons", "Gotham City"]
-    let locationImage = [UIImage(named: "resize-1"),UIImage(named: "resize-2"),UIImage(named: "resize-3")]
-    let locationPrice = ["$10/night", "$25/night", "$30/night"]
-    let locationDescription = ["Lots of grass", "Interstellar views", "Dark Knight glamping"]
+//    let locationName = ["The Shire", "Olympus Mons", "Gotham City"]
+//    let locationImage = [UIImage(named: "resize-1"),UIImage(named: "resize-2"),UIImage(named: "resize-3")]
+//    let locationPrice = ["$10/night", "$25/night", "$30/night"]
+//    let locationDescription = ["Lots of grass", "Interstellar views", "Dark Knight glamping"]
+//
     
+    var listings: [Listing] {
+        let fetchRequest: NSFetchRequest<Listing> = Listing.fetchRequest()
+        let moc = CoreDataStack.shared.mainContext
+        
+        do {
+            return try moc.fetch(fetchRequest)
+        } catch {
+            print("Error fetching listings: \(error)")
+            return []
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-//        let ref = Database.database().reference(fromURL: "https://rventure-a96cc.firebaseio.com/")
-//        ref.updateChildValues(["value": 123123])
-        
+
         // user not logged in
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
         if Auth.auth().currentUser?.uid == nil {
             perform(#selector(handleLogout), with: nil, afterDelay: 0)
             handleLogout()
         }
-        
     }
-    
-    
-    
-    
-    
+
     // MARK: - Views
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return locationName.count
+        return listings.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! ListingCollectionViewCell
-        cell.locationName.text = locationName[indexPath.row]
-        cell.locationImage.image = locationImage[indexPath.row]
-        cell.locationDescription.text = locationDescription[indexPath.row]
-        cell.locationPrice.text = locationPrice[indexPath.row]
+        
+        let listing = listings[indexPath.row]
+        
+        cell.locationName.text = listing.listingName
+        cell.locationImage.image = #imageLiteral(resourceName: "resize-4") // change in production
+        cell.locationDescription.text = listing.listingDescription
+        cell.locationPrice.text = listing.listingPrice
         
         // Set Listing card border and drop shadow
         cell.backgroundColor = .white
