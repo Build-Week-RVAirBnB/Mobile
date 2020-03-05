@@ -82,11 +82,9 @@ class ListingViewController: UIViewController, UICollectionViewDataSource, UICol
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "DetailSegue" {
-            guard let detailVC = segue.destination as? ListingDetailViewController else { return }
+            let selectedIndexPath = sender as? NSIndexPath
+            let detailVC = segue.destination as? ListingDetailViewController
             
-            if let detailVC = segue.destination as? ListingDetailViewController {
-                detailVC.listingController = listingController
-            }
         }
     }
     
