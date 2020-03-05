@@ -9,17 +9,13 @@
 import Foundation
 
 
-struct ListingRepresentation: Equatable, Codable {
-    var listingId: UUID?
-    let listingName: String
-    let listingDescription: String
-    let listingLocation: String
-    let listingPrice: String
-    let listingPhoto: String
-    let listingDate: Date
-    
+struct ListingRepresentation: Codable {
+    var identifier: String?
+    let name: String
+    let description: String
+    let price: String
 }
 
-struct ListingRepresentations: Codable {
-    let results: [ListingRepresentation]
-}
+//struct ListingRepresentations: Codable {
+//    let results: [ListingRepresentation]
+//}

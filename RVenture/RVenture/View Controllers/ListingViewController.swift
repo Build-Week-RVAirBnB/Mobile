@@ -7,37 +7,42 @@
 //
 
 import UIKit
+import FirebaseAuth
 import Firebase
 import CoreData
 
 class ListingViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
     @IBOutlet weak var addListingButton: UIBarButtonItem!
+    @IBOutlet weak var collectionView: UICollectionView!
+    
     
     // MARK - Properties
-    let listingController = ListingController()
-    
-    // For UI testing
-//    let locationName = ["The Shire", "Olympus Mons", "Gotham City"]
-//    let locationImage = [UIImage(named: "resize-1"),UIImage(named: "resize-2"),UIImage(named: "resize-3")]
-//    let locationPrice = ["$10/night", "$25/night", "$30/night"]
-//    let locationDescription = ["Lots of grass", "Interstellar views", "Dark Knight glamping"]
-//
-    
-    var listings: [Listing] {
+    private let listingController = ListingController()
+    private var blockOperations: [BlockOperation] = []
+
+    lazy var fetchedResultsController: NSFetchedResultsController<Listing> = {
         let fetchRequest: NSFetchRequest<Listing> = Listing.fetchRequest()
+        fetchRequest.sortDescriptors = [
+            NSSortDescriptor(key: "listingName", ascending: true)
+        ]
         let moc = CoreDataStack.shared.mainContext
-        
-        do {
-            return try moc.fetch(fetchRequest)
-        } catch {
-            print("Error fetching listings: \(error)")
-            return []
-        }
-    }
+        let frc = NSFetchedResultsController(fetchRequest: fetchRequest,
+                                             managedObjectContext: moc,
+                                             sectionNameKeyPath: "listingName",
+                                             cacheName: nil)
+        frc.delegate = self
+        try! frc.performFetch()
+        return frc
+    }()
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(doSomething), for: .valueChanged)
+          collectionView.refreshControl = refreshControl
 
         // user not logged in
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
@@ -46,17 +51,27 @@ class ListingViewController: UIViewController, UICollectionViewDataSource, UICol
             handleLogout()
         }
     }
+    
+    @objc func doSomething(refreshControl: UIRefreshControl) {
+        listingController.fetchListingsFromServer { (_) in
+            refreshControl.endRefreshing()
+        }
+    }
 
     // MARK: - Views
     
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return fetchedResultsController.sections?.count ?? 1
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return listings.count
+        return fetchedResultsController.sections?[section].numberOfObjects ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! ListingCollectionViewCell
         
-        let listing = listings[indexPath.row]
+        let listing = fetchedResultsController.object(at: indexPath)
         
         cell.locationName.text = listing.listingName
         cell.locationImage.image = #imageLiteral(resourceName: "resize-4") // change in production
@@ -107,3 +122,98 @@ class ListingViewController: UIViewController, UICollectionViewDataSource, UICol
     
 }
 
+extension ListingViewController: NSFetchedResultsControllerDelegate {
+    func controller(controller: NSFetchedResultsController<NSFetchRequestResult>, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+            
+        if type == NSFetchedResultsChangeType.insert {
+                print("Insert Object: \(newIndexPath)")
+                
+                blockOperations.append(
+                    BlockOperation(block: { [weak self] in
+                        if let this = self {
+                            this.collectionView!.insertItems(at: [(newIndexPath! as IndexPath)])
+                        }
+                    })
+                )
+            }
+        else if type == NSFetchedResultsChangeType.update {
+                print("Update Object: \(indexPath)")
+                blockOperations.append(
+                    BlockOperation(block: { [weak self] in
+                        if let this = self {
+                            this.collectionView!.reloadItems(at: [(indexPath! as IndexPath)])
+                        }
+                    })
+                )
+            }
+        else if type == NSFetchedResultsChangeType.move {
+                print("Move Object: \(indexPath)")
+                
+                blockOperations.append(
+                    BlockOperation(block: { [weak self] in
+                        if let this = self {
+                            this.collectionView!.moveItem(at: indexPath! as IndexPath, to: newIndexPath! as IndexPath)
+                        }
+                    })
+                )
+            }
+        else if type == NSFetchedResultsChangeType.delete {
+                print("Delete Object: \(indexPath)")
+                
+                blockOperations.append(
+                    BlockOperation(block: { [weak self] in
+                        if let this = self {
+                            this.collectionView!.deleteItems(at: [(indexPath! as IndexPath)])
+                        }
+                    })
+                )
+            }
+        }
+
+    func controller(controller: NSFetchedResultsController<NSFetchRequestResult>, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
+            
+        if type == NSFetchedResultsChangeType.insert {
+                print("Insert Section: \(sectionIndex)")
+                
+                blockOperations.append(
+                    BlockOperation(block: { [weak self] in
+                        if let this = self {
+                            this.collectionView!.insertSections(NSIndexSet(index: sectionIndex) as IndexSet)
+                        }
+                    })
+                )
+            }
+        else if type == NSFetchedResultsChangeType.update {
+                print("Update Section: \(sectionIndex)")
+                blockOperations.append(
+                    BlockOperation(block: { [weak self] in
+                        if let this = self {
+                            this.collectionView!.reloadSections(NSIndexSet(index: sectionIndex) as IndexSet)
+                        }
+                    })
+                )
+            }
+        else if type == NSFetchedResultsChangeType.delete {
+                print("Delete Section: \(sectionIndex)")
+                
+                blockOperations.append(
+                    BlockOperation(block: { [weak self] in
+                        if let this = self {
+                            this.collectionView!.deleteSections(NSIndexSet(index: sectionIndex) as IndexSet)
+                        }
+                    })
+                )
+            }
+        }
+
+    func controllerDidChangeContent(controller: NSFetchedResultsController<NSFetchRequestResult>) {
+            collectionView!.performBatchUpdates({ () -> Void in
+                for operation: BlockOperation in self.blockOperations {
+                    operation.start()
+                }
+            }, completion: { (finished) -> Void in
+                self.blockOperations.removeAll(keepingCapacity: false)
+            })
+        }
+
+}
