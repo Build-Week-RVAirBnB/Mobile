@@ -10,6 +10,7 @@ import Foundation
 
 
 struct ListingRepresentation: Equatable, Codable {
+    
     let name: String
     let descriptions: String?
     let price: Double

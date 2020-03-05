@@ -18,7 +18,7 @@ class ListingViewController: UIViewController, UICollectionViewDataSource, UICol
     
     // For UI testing
     let locationName = ["The Shire", "Olympus Mons", "Gotham City"]
-    let locationImage = [UIImage(named: "resize-1"),UIImage(named: "resize-2"),UIImage(named: "resize-3")]
+    let locationImage = [ #imageLiteral(resourceName: "resize-1"), #imageLiteral(resourceName: "resize-2"),#imageLiteral(resourceName: "resize-3")]
     let locationPrice = ["$10/night", "$25/night", "$30/night"]
     let locationDescription = ["Lots of grass", "Interstellar views", "Dark Knight glamping"]
     
@@ -38,7 +38,7 @@ class ListingViewController: UIViewController, UICollectionViewDataSource, UICol
         
     }
     
-    
+ 
     
     
     

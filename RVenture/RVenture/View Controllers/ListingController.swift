@@ -8,6 +8,8 @@
 
 import UIKit
 import CoreData
+import FirebaseDatabase
+import Firebase
 
 enum HTTPMethod: String {
     case get = "GET"
@@ -34,6 +36,9 @@ class ListingController {
     let locationDescription = ["Lots of grass", "Interstellar views", "Dark Knight glamping"]
     
     // MARK: - Properties
+
+   
+    
     var searchedListings: [ListingRepresentation] = []
     
     init() {
@@ -70,7 +75,7 @@ class ListingController {
                }
                
                do {
-                   let listingRepresentations = try JSONDecoder().decode(ListingRepresentations.self, from: data).results
+                let listingRepresentations = try JSONDecoder().decode(ListingRepresentations.self, from: data).results
                    self.searchedListings = listingRepresentations
                    completion(nil)
                } catch {
@@ -105,7 +110,7 @@ class ListingController {
             let context = CoreDataStack.shared.container.newBackgroundContext()
             context.perform {
                 do {
-                    let listingRepresentations = Array(try JSONDecoder().decode([String : ListingRepresentation].self, from: data).values)
+                    let listingRepresentations = Array(try JSONDecoder().decode([Data : ListingRepresentation].self, from: data).values)
                     try self.updateListings(with: listingRepresentations)
                     DispatchQueue.main.async {
                         completion(nil)
@@ -168,7 +173,7 @@ class ListingController {
     func sendListingToServer(listing: Listing, completion: @escaping CompletionHandler = { _ in }) {
         let uuid = listing.identifier ?? UUID()
         
-        let requestURL = baseURL.appendingPathComponent("Listing").appendingPathComponent(uuid.uuidString).appendingPathExtension("json")
+        let requestURL = baseURL.appendingPathComponent(uuid.uuidString).appendingPathExtension("json")
         var request = URLRequest(url: requestURL)
         request.httpMethod = HTTPMethod.put.rawValue
         

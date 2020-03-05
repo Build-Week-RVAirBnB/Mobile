@@ -14,7 +14,7 @@ extension Listing {
     
     var listingRepresentation: ListingRepresentation? {
         guard let name = name,
-        let date = date else { return nil}
+        let description = descriptions else { return nil}
         
         return ListingRepresentation(name: name,
                                      descriptions: description,
@@ -26,7 +26,7 @@ extension Listing {
                      descriptions: String?,
                      price: Double,
                      identifier: UUID = UUID(),
-                     date: Date,
+                     date: Date = Date(),
                      context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         self.init(context: context)
         self.identifier = identifier
@@ -42,9 +42,6 @@ extension Listing {
                      context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         
         let identifier = listingRepresentation.identifier ?? UUID()
-        let date = listingRepresentation.date ?? Date()
-        
-        let image = UIImage()
         
         let listingDate = listingRepresentation.date ?? Date()
         
