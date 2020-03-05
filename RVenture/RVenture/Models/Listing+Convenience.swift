@@ -25,6 +25,7 @@ extension Listing {
                      price: Double,
                      identifier: UUID = UUID(),
                      date: Date = Date(),
+                     image: String?,
                      context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         self.init(context: context)
         self.identifier = identifier
@@ -32,6 +33,7 @@ extension Listing {
         self.descriptions = descriptions
         self.date = date
         self.price = price
+        self.image = image
       
     }
     
@@ -39,15 +41,15 @@ extension Listing {
     convenience init?(listingRepresentation: ListingRepresentation,
                      context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         
-        let identifier = listingRepresentation.identifier ?? UUID()
-        
         let listingDate = listingRepresentation.date ?? Date()
+        let image = listingRepresentation.imagePath ?? ""
         
         self.init(name: listingRepresentation.name,
                   descriptions: listingRepresentation.description,
                   price: listingRepresentation.price,
-                  identifier: identifier,
+                  identifier: listingRepresentation.identifier,
                   date: listingDate,
+                  image: image,
                   context: context)
                     
         }

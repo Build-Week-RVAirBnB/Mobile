@@ -250,15 +250,16 @@ class ListingController {
         listing.descriptions = representation.description
         listing.price = representation.price
         listing.identifier = representation.identifier
+        listing.image = representation.imagePath
         
     }
     
     
-    func createListing(name: String, date: Date?, description: String?, price: Double, identifier: UUID) {
+    func createListing(name: String, date: Date?, description: String?, price: Double, identifier: UUID = UUID(), image: String) {
         
         guard let date = date else { return }
         
-        let _ = Listing(name: name, descriptions: description, price: price, date: date)
+        let _ = Listing(name: name, descriptions: description, price: price, date: date, image: image)
         
     }
     
@@ -267,8 +268,10 @@ class ListingController {
         let date = listingRepresentation.date
         let descriptions = listingRepresentation.description ?? ""
         let price = listingRepresentation.price
-        let identifier = listingRepresentation.identifier ?? UUID()
-       createListing(name: name, date: date, description: descriptions, price: price, identifier: identifier)
+        let identifier = listingRepresentation.identifier
+        let image = listingRepresentation.imagePath ?? ""
+        
+        createListing(name: name, date: date, description: descriptions, price: price, identifier: identifier, image: image)
     }
     
     
