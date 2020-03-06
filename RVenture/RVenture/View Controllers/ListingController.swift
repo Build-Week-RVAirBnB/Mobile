@@ -23,7 +23,7 @@ enum NetworkError: Error {
 
 // Testing URL for database
 //let baseURL = URL(string: "https://rventure-a96cc.firebaseio.com/")!
-let baseURL = URL(string: "https://rventure-listings.firebaseio.com/")!
+let baseURL = URL(string: "https://rventure-a96cc.firebaseio.com/")!
 
 class ListingController {
     
@@ -34,7 +34,7 @@ class ListingController {
     }
     
     func fetchListingsFromServer(completion: @escaping CompletionHandler = { _ in }) {
-        let requestURL = baseURL.appendingPathExtension("json")
+        let requestURL = baseURL.appendingPathComponent("listings").appendingPathExtension("json")
         
         URLSession.shared.dataTask(with: requestURL) { (data, _, error) in
             guard error == nil else {
@@ -70,7 +70,7 @@ class ListingController {
     
     func sendListingToServer(listing: Listing, completion: @escaping CompletionHandler = { _ in }) {
         let uuid = listing.identifier ?? UUID()
-        let requestURL = baseURL.appendingPathComponent(uuid.uuidString).appendingPathExtension("json")
+        let requestURL = baseURL.appendingPathComponent("listings").appendingPathComponent(uuid.uuidString).appendingPathExtension("json")
         var request = URLRequest(url: requestURL)
         request.httpMethod = "PUT"
         

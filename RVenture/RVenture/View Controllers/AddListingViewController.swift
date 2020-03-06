@@ -20,7 +20,7 @@ class AddListingViewController: UIViewController {
     @IBOutlet weak var locationImage: UIImageView!
     
     var listing: Listing?
-    var listingController: ListingController?
+    var listingController: ListingController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,10 +40,11 @@ class AddListingViewController: UIViewController {
             listing.listingName = name
             listing.listingDescription = description
             listing.listingPrice = price
-            listingController?.sendListingToServer(listing: listing)
+            listingController.sendListingToServer(listing: listing)
+
         } else {
             let listing = Listing(listingName: name, listingDescription: description!, listingPrice: price!)
-            listingController?.sendListingToServer(listing: listing)
+            listingController.sendListingToServer(listing: listing)
         }
         
         // Create new listing
