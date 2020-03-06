@@ -23,7 +23,7 @@ enum NetworkError: Error {
 
 // Testing URL for database
 //let baseURL = URL(string: "https://rventure-a96cc.firebaseio.com/")!
-let baseURL = URL(string: "https://rventure-a96cc.firebaseio.com/")!
+let baseURL = URL(string: "https://rventure-a96cc.firebaseio.com/c")!
 
 class ListingController {
     
