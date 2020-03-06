@@ -12,7 +12,8 @@ import CoreData
 extension Listing {
     
     var listingRepresentation: ListingRepresentation? {
-        guard let listingName = listingName else {
+        guard let listingName = listingName,
+        let image = image else {
             return nil
         }
         
@@ -20,7 +21,7 @@ extension Listing {
                              name: listingName,
                              description: listingDescription ?? "",
                              price: listingPrice ?? "",
-                             image: image ?? "")
+                             image: image)
     }
     
     @discardableResult
@@ -28,7 +29,7 @@ extension Listing {
                      listingDescription: String,
                      listingPrice: String,
                      identifier: UUID = UUID(),
-                     image: String?,
+                     image: Data?,
                      context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         self.init(context: context)
         self.listingName = listingName

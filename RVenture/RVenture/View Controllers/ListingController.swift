@@ -136,12 +136,15 @@ class ListingController {
         try self.saveToPersistentStore()
     }
     
+    
+    
     // MARK: - Private Functions
     
     private func update(listing: Listing, with representation: ListingRepresentation) {
         listing.listingName = representation.name
         listing.listingDescription = representation.description
         listing.listingPrice = representation.price
+        listing.image = representation.image
     }
     
     private func saveToPersistentStore() throws {
