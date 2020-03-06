@@ -73,9 +73,7 @@ class AddListingViewController: UIViewController {
         imageView.image = storageImage
         //Updated global varibale for the storage path for the selected image
         storageImagePath = storagePath
-        //Enable savebutton and change its color
-        saveButton.isEnabled = true
-        saveButton.backgroundColor = .green
+       
         
     }
     
