@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 
 class AddListingViewController: UIViewController {
 
@@ -24,7 +25,7 @@ class AddListingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(cameraButtonPressed))
         // Do any additional setup after loading the view.
     }
     
@@ -35,15 +36,15 @@ class AddListingViewController: UIViewController {
         let description = listingDescriptionText.text
         let price = listingPriceText.text
         let location = listingLocationText.text
+        let image = locationImage.image?.toString()
         
         if let listing = listing {
             listing.listingName = name
             listing.listingDescription = description
             listing.listingPrice = price
             listingController.sendListingToServer(listing: listing)
-
         } else {
-            let listing = Listing(listingName: name, listingDescription: description!, listingPrice: price!)
+            let listing = Listing(listingName: name, listingDescription: description!, listingPrice: price!, image: image)
             listingController.sendListingToServer(listing: listing)
         }
         
@@ -58,6 +59,31 @@ class AddListingViewController: UIViewController {
         }
         
         navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func cameraButtonPressed() {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.allowsEditing = true
+        picker.sourceType = .photoLibrary
+        present(picker, animated: true)
+    }
+    
+}
+
+extension UIImage {
+    func toString() -> String? {
+        let data: Data? = self.pngData()
+        return data?.base64EncodedString(options: .endLineWithLineFeed)
+    }
+}
+
+extension AddListingViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let userPickedImage = info[.editedImage] as? UIImage else { return }
+        locationImage.image = userPickedImage
+        picker.dismiss(animated: true)
     }
     
 }

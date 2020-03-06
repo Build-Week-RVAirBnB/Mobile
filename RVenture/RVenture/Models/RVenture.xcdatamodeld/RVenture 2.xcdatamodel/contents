@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19D76" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15508" systemVersion="18G103" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Listing" representedClassName="Listing" syncable="YES" codeGenerationType="class">
         <attribute name="identifier" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="image" optional="YES" attributeType="String"/>
         <attribute name="listingDescription" attributeType="String"/>
         <attribute name="listingName" attributeType="String"/>
         <attribute name="listingPrice" attributeType="String"/>
     </entity>
     <elements>
-        <element name="Listing" positionX="-45" positionY="27" width="128" height="103"/>
+        <element name="Listing" positionX="-45" positionY="27" width="128" height="118"/>
     </elements>
 </model>

@@ -19,7 +19,8 @@ extension Listing {
         return ListingRepresentation(identifier: identifier?.uuidString ?? "",
                              name: listingName,
                              description: listingDescription ?? "",
-                             price: listingPrice ?? "")
+                             price: listingPrice ?? "",
+                             image: image ?? "")
     }
     
     @discardableResult
@@ -27,6 +28,7 @@ extension Listing {
                      listingDescription: String,
                      listingPrice: String,
                      identifier: UUID = UUID(),
+                     image: String?,
                      context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         self.init(context: context)
         self.listingName = listingName
@@ -42,11 +44,13 @@ extension Listing {
             let identifier = UUID(uuidString: identifierString) else {
                 return nil
         }
+    
         
         self.init(listingName: listingRepresentation.name,
                   listingDescription: listingRepresentation.description,
                   listingPrice: listingRepresentation.price,
                   identifier: identifier,
+                  image: listingRepresentation.image,
                   context: context)
     
     }
