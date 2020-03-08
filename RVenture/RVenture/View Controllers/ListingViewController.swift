@@ -40,6 +40,7 @@ class ListingViewController: UIViewController, UICollectionViewDataSource, UICol
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(doSomething), for: .valueChanged)
           collectionView.refreshControl = refreshControl

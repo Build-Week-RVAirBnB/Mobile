@@ -20,11 +20,16 @@ class AddListingViewController: UIViewController, UINavigationControllerDelegate
     @IBOutlet weak var listingDatePicker: UIDatePicker!
     @IBOutlet weak var locationImage: UIImageView!
     
-    var listing: Listing?
+    var listing: Listing? {
+        didSet {
+            updateViews()
+        }
+    }
     var listingController: ListingController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        updateViews()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(cameraButtonPressed))
         // Do any additional setup after loading the view.
     }
@@ -32,7 +37,16 @@ class AddListingViewController: UIViewController, UINavigationControllerDelegate
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
                guard let userPickedImage = info[.editedImage] as? UIImage else { return }
                locationImage.image = userPickedImage
-               
+                
+        let moc = CoreDataStack.shared.mainContext
+        moc.perform {
+        do {
+            try moc.save()
+        } catch {
+            moc.reset()
+            print("Error saving image: \(error)")
+        }
+        }
                picker.dismiss(animated: true)
            }
     
@@ -54,35 +68,29 @@ class AddListingViewController: UIViewController, UINavigationControllerDelegate
     
 
     @IBAction func saveListing(_ sender: Any) {
-        guard let name = listingNameText.text, 
+        guard let name = listingNameText.text,
+        listingDatePicker.date > Date(),
+            let description = listingDescriptionText.text,
+            let price = listingPriceText.text,
             !name.isEmpty else { return }
-        let description = listingDescriptionText.text
-        let price = listingPriceText.text
-        let location = listingLocationText.text
-        guard let image = locationImage.image?.toData() else { return }
         
-        
-        if let listing = listing {
-            listing.listingName = name
-            listing.listingDescription = description
-            listing.listingPrice = price
-            listing.image = image
-//            saveImage(data: image)
-            listingController.sendListingToServer(listing: listing)
-        } else {
-            let listing = Listing(listingName: name, listingDescription: description!, listingPrice: price!, image: image)
-//            saveImage(data: image)
-            listingController.sendListingToServer(listing: listing)
-        }
-        
-        // Create new listing
-
-   
-        do {
-            let moc = CoreDataStack.shared.mainContext
-            try moc.save()
-        } catch {
-            print("Error saving Listing: \(error)")
+        guard let image = locationImage?.image else { return }
+        guard let databaseImage = locationImage.image?.toString() else { return }
+        let date = listingDatePicker.date
+     
+        CoreDataStack.shared.mainContext.perform {
+            if let listing = self.listing {
+                listing.listingName = name
+                listing.listingDescription = description
+                listing.listingPrice = price
+                listing.image = databaseImage
+                listing.date = date
+                self.listingController.sendListingToServer(listing: listing)
+                self.listingController.saveImage(image: image)
+            } else {
+                let listing = Listing(listingName: name, listingDescription: description, listingPrice: price, date: date, image: image.toString())
+                self.listingController.sendListingToServer(listing: listing)
+            }
         }
         
         navigationController?.popViewController(animated: true)
@@ -96,21 +104,33 @@ class AddListingViewController: UIViewController, UINavigationControllerDelegate
         present(picker, animated: true)
     }
     
+    
+    
+    private func updateViews() {
+        guard isViewLoaded else { return }
+        
+        if let listing = listing {
+            navigationItem.title = listing.listingName
+            listingNameText.text = listing.listingName
+            listingDescriptionText.text = listing.description
+            listingDatePicker.date = listing.date ?? Date()
+            listingPriceText.text = listing.listingPrice
+            listingDatePicker.datePickerMode = .date
+        } else {
+            navigationItem.title = "Create Listing"
+            listingDatePicker.date = Date(timeIntervalSinceNow: 86400)
+        }
+    }
+    
 }
 
 extension UIImage {
-    func toData() -> Data? {
+    func toString() -> String? {
         let data: Data? = self.pngData()
-        return data?.base64EncodedData(options: .endLineWithLineFeed)
+        return data?.base64EncodedString(options: .endLineWithLineFeed)
     }
 }
 
-extension Data {
-    func toUIImage() -> UIImage? {
-        let image: UIImage? = self.toUIImage()
-        return image
-    }
-}
 //
 //extension AddListingViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 //

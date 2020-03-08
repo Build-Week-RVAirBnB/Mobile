@@ -10,13 +10,14 @@ import Foundation
 
 
 struct ListingRepresentation: Codable {
-    var identifier: String?
+    var identifier: UUID?
     let name: String
     let description: String
     let price: String
-    let image: Data
+    let date: Date?
+    let image: String?
 }
 
-//struct ListingRepresentations: Codable {
-//    let results: [ListingRepresentation]
-//}
+struct ListingRepresentations: Codable {
+    let results: [ListingRepresentation]
+}
