@@ -12,13 +12,11 @@ import Foundation
 class AddListingViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
     @IBOutlet weak var listingNameText: UITextField!
-    
-    @IBOutlet weak var listingDescriptionText: UITextField!
-    
     @IBOutlet weak var listingPriceText: UITextField!
-    @IBOutlet weak var listingLocationText: UITextField!
-    @IBOutlet weak var listingDatePicker: UIDatePicker!
+    @IBOutlet weak var listingDescriptionTextView: UITextView!
     @IBOutlet weak var locationImage: UIImageView!
+    @IBOutlet weak var fromDateTextField: UITextField!
+    @IBOutlet weak var toDateTextField: UITextField!
     
     var listing: Listing? {
         didSet {
@@ -27,10 +25,14 @@ class AddListingViewController: UIViewController, UINavigationControllerDelegate
     }
     var listingController: ListingController!
     
+    private var fromDatePicker: UIDatePicker?
+    private var toDatePicker: UIDatePicker?
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         updateViews()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(cameraButtonPressed))
+       
         // Do any additional setup after loading the view.
     }
     
@@ -69,22 +71,23 @@ class AddListingViewController: UIViewController, UINavigationControllerDelegate
 
     @IBAction func saveListing(_ sender: Any) {
         guard let name = listingNameText.text,
-        listingDatePicker.date > Date(),
-            let description = listingDescriptionText.text,
+            let fromDate = fromDatePicker?.date,
+            let toDate = toDatePicker?.date,
+            let description = listingDescriptionTextView.text,
             let price = listingPriceText.text,
             !name.isEmpty else { return }
-        
         guard let image = locationImage?.image else { return }
         guard let databaseImage = locationImage.image?.toString() else { return }
-        let date = listingDatePicker.date
-     
+        
+        let date = [fromDate, toDate]
+
         CoreDataStack.shared.mainContext.perform {
             if let listing = self.listing {
                 listing.listingName = name
-                listing.listingDescription = description
+//                listing.listingDescription = description
                 listing.listingPrice = price
                 listing.image = databaseImage
-                listing.date = date
+//                listing.date = date
                 self.listingController.sendListingToServer(listing: listing)
                 self.listingController.saveImage(image: image)
             } else {
@@ -112,17 +115,72 @@ class AddListingViewController: UIViewController, UINavigationControllerDelegate
         if let listing = listing {
             navigationItem.title = listing.listingName
             listingNameText.text = listing.listingName
-            listingDescriptionText.text = listing.description
-            listingDatePicker.date = listing.date ?? Date()
-            listingPriceText.text = listing.listingPrice
-            listingDatePicker.datePickerMode = .date
+            listingDescriptionTextView.text = listing.description
+//            listingDatePicker.date = listing.date ?? Date()
+//            listingPriceText.text = listing.listingPrice
+//            listingDatePicker.datePickerMode = .date
         } else {
             navigationItem.title = "Create Listing"
-            listingDatePicker.date = Date(timeIntervalSinceNow: 86400)
+//            listingDatePicker.date = Date(timeIntervalSinceNow: 86400)
+//            listingDatePicker.datePickerMode = .date
         }
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(cameraButtonPressed))
+        
+        fromDatePicker = UIDatePicker()
+        fromDatePicker?.datePickerMode = .date
+        fromDatePicker?.addTarget(self, action: #selector(fromDateChanged(fromDatePicker:)), for: .valueChanged)
+        fromDateTextField.inputView = fromDatePicker
+        
+        toDatePicker = UIDatePicker()
+        toDatePicker?.datePickerMode = .date
+        toDatePicker?.addTarget(self, action: #selector(toDateChanged(toDatePicker:)), for: .valueChanged)
+        toDateTextField.inputView = toDatePicker
+        
+        let toolBar = UIToolbar()
+                 toolBar.barStyle = UIBarStyle.default
+                 toolBar.isTranslucent = true
+                 toolBar.tintColor = #colorLiteral(red: 0.224999994, green: 0.3549999893, blue: 1, alpha: 1)
+                 toolBar.sizeToFit()
+
+
+                 let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.done, target: self, action: #selector(self.viewTapped(gestureRecognizer:)))
+                 toolBar.setItems([doneButton], animated: true)
+
+
+                 toolBar.isUserInteractionEnabled = true
+                   
+           fromDateTextField.inputAccessoryView = toolBar
+           toDateTextField.inputAccessoryView = toolBar
+        
+//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(AddListingViewController.viewTapped(gestureRecognizer:)))
+//        view.addGestureRecognizer(tapGesture)
+        
     }
     
+    @objc func viewTapped(gestureRecognizer: UITapGestureRecognizer) {
+        view.endEditing(true)
+    }
+
+    @objc func fromDateChanged(fromDatePicker: UIDatePicker) {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        fromDateTextField.text = dateFormatter.string(from: fromDatePicker.date)
+//        view.endEditing(true)
+        
+    }
+    @objc func toDateChanged(toDatePicker: UIDatePicker) {
+           
+           let dateFormatter = DateFormatter()
+           dateFormatter.dateFormat = "MM/dd/yyyy"
+           toDateTextField.text = dateFormatter.string(from: toDatePicker.date)
+//           view.endEditing(true)
+           
+       }
+    
 }
+
 
 extension UIImage {
     func toString() -> String? {
