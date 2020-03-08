@@ -72,14 +72,15 @@ class AddListingViewController: UIViewController, UINavigationControllerDelegate
     @IBAction func saveListing(_ sender: Any) {
         guard let name = listingNameText.text,
             let fromDate = fromDatePicker?.date,
-            let toDate = toDatePicker?.date,
+            let dateTo = toDatePicker?.date,
             let description = listingDescriptionTextView.text,
             let price = listingPriceText.text,
             !name.isEmpty else { return }
         guard let image = locationImage?.image else { return }
         guard let databaseImage = locationImage.image?.toString() else { return }
         
-        let date = [fromDate, toDate]
+        let date = fromDate
+        let dateTolisting = dateTo
 
         CoreDataStack.shared.mainContext.perform {
             if let listing = self.listing {
@@ -91,7 +92,7 @@ class AddListingViewController: UIViewController, UINavigationControllerDelegate
                 self.listingController.sendListingToServer(listing: listing)
                 self.listingController.saveImage(image: image)
             } else {
-                let listing = Listing(listingName: name, listingDescription: description, listingPrice: price, date: date, image: image.toString())
+                let listing = Listing(listingName: name, listingDescription: description, listingPrice: price, date: date, dateTo: dateTolisting, image: image.toString())
                 self.listingController.sendListingToServer(listing: listing)
             }
         }
@@ -118,22 +119,24 @@ class AddListingViewController: UIViewController, UINavigationControllerDelegate
             listingDescriptionTextView.text = listing.description
 //            listingDatePicker.date = listing.date ?? Date()
 //            listingPriceText.text = listing.listingPrice
-//            listingDatePicker.datePickerMode = .date
         } else {
             navigationItem.title = "Create Listing"
-//            listingDatePicker.date = Date(timeIntervalSinceNow: 86400)
-//            listingDatePicker.datePickerMode = .date
+
+
         }
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(cameraButtonPressed))
         
         fromDatePicker = UIDatePicker()
         fromDatePicker?.datePickerMode = .date
+        //24hrs from now
+        fromDatePicker?.date = Date(timeIntervalSinceNow: 86400)
         fromDatePicker?.addTarget(self, action: #selector(fromDateChanged(fromDatePicker:)), for: .valueChanged)
         fromDateTextField.inputView = fromDatePicker
         
         toDatePicker = UIDatePicker()
         toDatePicker?.datePickerMode = .date
+         fromDatePicker?.date = Date(timeIntervalSinceNow: 86400)
         toDatePicker?.addTarget(self, action: #selector(toDateChanged(toDatePicker:)), for: .valueChanged)
         toDateTextField.inputView = toDatePicker
         

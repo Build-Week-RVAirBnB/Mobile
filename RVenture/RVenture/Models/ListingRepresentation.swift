@@ -15,6 +15,7 @@ struct ListingRepresentation: Codable {
     let description: String
     let price: String
     let date: Date?
+    let dateTo: Date?
     let image: String?
 }
 

@@ -2,6 +2,7 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15508" systemVersion="18G103" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Listing" representedClassName="Listing" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="dateTo" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="identifier" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="image" optional="YES" attributeType="String" allowsExternalBinaryDataStorage="YES"/>
         <attribute name="listingDescription" attributeType="String"/>
@@ -9,6 +10,6 @@
         <attribute name="listingPrice" attributeType="String"/>
     </entity>
     <elements>
-        <element name="Listing" positionX="-45" positionY="27" width="128" height="133"/>
+        <element name="Listing" positionX="-45" positionY="27" width="128" height="148"/>
     </elements>
 </model>

@@ -212,6 +212,8 @@ class ListingController {
         listing.listingDescription = representation.description
         listing.listingPrice = representation.price
         listing.image = representation.image
+        listing.date = representation.date
+        listing.dateTo = representation.dateTo
     }
     
     private func saveToPersistentStore() throws {
@@ -221,13 +223,14 @@ class ListingController {
 
     
     //CRUD:
-        func createListing(name: String, description: String?, price: String?, date: Date?, image: String?, identifier: UUID = UUID()) {
+    func createListing(name: String, description: String?, price: String?, date: Date?, dateTo: Date?, image: String?, identifier: UUID = UUID()) {
         guard let date = date,
-           let  description = description,
+           let dateTo = dateTo,
+           let description = description,
             let image = image,
             let price = price else { return }
             
-        let _ = Listing(listingName: name, listingDescription: description, listingPrice: price, date: date, image: image)
+            let _ = Listing(listingName: name, listingDescription: description, listingPrice: price, date: date, dateTo: dateTo, image: image)
         
     }
     
@@ -239,7 +242,7 @@ class ListingController {
         let identifier = listingRepresentation.identifier ?? UUID()
         let image = listingRepresentation.image
         
-        createListing(name: name, description: description, price: price, date: date, image: image, identifier: identifier)
+        createListing(name: name, description: description, price: price, date: date, dateTo: date, image: image, identifier: identifier)
     }
     
 }
