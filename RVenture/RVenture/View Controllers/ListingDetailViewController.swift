@@ -9,9 +9,11 @@
 import UIKit
 import CoreData
 
+protocol ListingsDetailViewControllerDelegate: class {
+    func fetchData()
+}
+
 class ListingDetailViewController: UIViewController {
-    
-    var listingController: ListingController?
     
     // MARK:- IBOutlets
     @IBOutlet weak var locationImage: UIImageView!
@@ -20,9 +22,39 @@ class ListingDetailViewController: UIViewController {
     @IBOutlet weak var locationPrice: UILabel!
     @IBOutlet weak var datesLabel: UILabel!
     
+     var listingController: ListingController?
+    
+    weak var delegate: ListingsDetailViewControllerDelegate?
+    
+    var listing: Listing? {
+        didSet {
+            updateViews()
+            
+        }
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        updateViews()
+        delegate?.fetchData()
+    }
+        
+        func updateViews() {
+            guard isViewLoaded else { return }
+            if let listing = listing {
+                title = listing.listingName
+                locationImage.image = listing.image?.toImage()
+                locationName.text = listing.listingName
+                locationDescription.text = listing.listingDescription
+                locationPrice.text = listing.listingPrice
+                datesLabel.text = "\(listing.date ?? Date()) - \(listing.dateTo ?? Date())"
+            } else {
+                title = listing?.listingName ?? "RVenture"
+                locationName.text = "Idaho, USA"
+                locationDescription.text = "Your ultimate getaway"
+                locationPrice.text = "Afforable alternative"
+                datesLabel.text = "Start your RVenture"
+            }
     }
 }

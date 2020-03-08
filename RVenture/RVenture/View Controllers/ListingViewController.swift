@@ -24,7 +24,8 @@ class ListingViewController: UIViewController, UICollectionViewDataSource, UICol
     lazy var fetchedResultsController: NSFetchedResultsController<Listing> = {
         let fetchRequest: NSFetchRequest<Listing> = Listing.fetchRequest()
         fetchRequest.sortDescriptors = [
-            NSSortDescriptor(key: "listingName", ascending: true)
+            NSSortDescriptor(key: "listingName", ascending: true),
+            NSSortDescriptor(key: "image", ascending: false)
         ]
         let moc = CoreDataStack.shared.mainContext
         let frc = NSFetchedResultsController(fetchRequest: fetchRequest,
@@ -41,6 +42,7 @@ class ListingViewController: UIViewController, UICollectionViewDataSource, UICol
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        collectionView?.reloadData()
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(doSomething), for: .valueChanged)
           collectionView.refreshControl = refreshControl
@@ -73,11 +75,13 @@ class ListingViewController: UIViewController, UICollectionViewDataSource, UICol
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! ListingCollectionViewCell
         
         let listing = fetchedResultsController.object(at: indexPath)
-        
+    
         cell.locationName.text = listing.listingName
-        cell.locationImage.image = #imageLiteral(resourceName: "resize-4") // change in production
+        cell.locationImage.image = listing.image?.toImage()
         cell.locationDescription.text = listing.listingDescription
         cell.locationPrice.text = listing.listingPrice
+        cell.dateToLabel.text = listing.date?.toString(dateFormat: "MM/dd/yyyy")
+        cell.dateFromLabel.text = listing.dateTo?.toString(dateFormat: "MM/dd/yyyy")
         
         // Set Listing card border and drop shadow
         cell.backgroundColor = .white
@@ -97,11 +101,20 @@ class ListingViewController: UIViewController, UICollectionViewDataSource, UICol
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "DetailSegue" {
-            let selectedIndexPath = sender as? NSIndexPath
-            let detailVC = segue.destination as? ListingDetailViewController
+        
+        if segue.identifier == "DetailSegue", let detailVC = segue.destination as? ListingDetailViewController {
+            detailVC.delegate = self 
         }
         
+        if segue.identifier == "DetailSegue" {
+            guard let selectedIndexPath = sender as? NSIndexPath else { return }
+            guard let detailVC = segue.destination as? ListingDetailViewController else { return }
+            
+            detailVC.delegate = self
+            detailVC.listing = fetchedResultsController.object(at: selectedIndexPath as IndexPath)
+            detailVC.listingController = listingController
+        }
+
         if let addVC = segue.destination as? AddListingViewController {
             addVC.listingController = listingController
         }
@@ -122,6 +135,7 @@ class ListingViewController: UIViewController, UICollectionViewDataSource, UICol
     }
     
     @IBAction func addNewListingTapped(_ sender: Any) {
+        
     }
     
 }
@@ -220,4 +234,19 @@ extension ListingViewController: NSFetchedResultsControllerDelegate {
             })
         }
 
+}
+extension String {
+    func toImage() -> UIImage? {
+        if let data = Data(base64Encoded: self, options: .ignoreUnknownCharacters){
+            return UIImage(data: data)
+        }
+        return nil
+    }
+}
+
+extension ListingViewController: ListingsDetailViewControllerDelegate {
+    
+    func fetchData() {
+        collectionView.reloadData()
+    }
 }

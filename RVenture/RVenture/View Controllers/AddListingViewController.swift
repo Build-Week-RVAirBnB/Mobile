@@ -27,7 +27,12 @@ class AddListingViewController: UIViewController, UINavigationControllerDelegate
     
     private var fromDatePicker: UIDatePicker?
     private var toDatePicker: UIDatePicker?
-    
+   
+    var dateFormatter: DateFormatter {
+           let formatter = DateFormatter()
+            formatter.dateFormat = .some("MM/dd/yyyy")
+           return formatter
+       }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,22 +56,6 @@ class AddListingViewController: UIViewController, UINavigationControllerDelegate
         }
                picker.dismiss(animated: true)
            }
-    
-//    func saveImage(data: Data) {
-//        let imageInstance = locationImage
-//       var img = imageInstance?.image?.toData()
-//        img = data
-//        let moc = CoreDataStack.shared.mainContext
-//        moc.performAndWait {
-//            do {
-//                try moc.save()
-//                print("Image is saved")
-//            } catch {
-//                print(error.localizedDescription)
-//            }
-//        }
-//    }
-//
     
 
     @IBAction func saveListing(_ sender: Any) {
@@ -110,15 +99,15 @@ class AddListingViewController: UIViewController, UINavigationControllerDelegate
     
     
     
+    
     private func updateViews() {
         guard isViewLoaded else { return }
-        
         if let listing = listing {
             navigationItem.title = listing.listingName
             listingNameText.text = listing.listingName
             listingDescriptionTextView.text = listing.description
-//            listingDatePicker.date = listing.date ?? Date()
-//            listingPriceText.text = listing.listingPrice
+            fromDateTextField.text = listing.date?.toString(dateFormat: "MM/dd/yyyy")
+            toDateTextField.text = listing.dateTo?.toString(dateFormat: "MM/dd/yyyy")
         } else {
             navigationItem.title = "Create Listing"
 
@@ -192,6 +181,25 @@ extension UIImage {
     }
 }
 
+extension String {
+    func toDate(withFormat format: String = "MM/dd/yyyy") -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        guard let date = dateFormatter.date(from: self) else {
+            preconditionFailure()
+        }
+        return date
+    }
+
+}
+extension Date {
+    func toString(dateFormat format : String ) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        return dateFormatter.string(from: self)
+    }
+
+}
 //
 //extension AddListingViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 //

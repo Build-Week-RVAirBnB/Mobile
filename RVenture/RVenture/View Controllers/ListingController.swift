@@ -122,7 +122,6 @@ class ListingController {
             do {
                 let listingRepresentations = Array(try JSONDecoder().decode([String: ListingRepresentation].self, from: data).values)
                 try self.updateListings(with: listingRepresentations)
-                
                 DispatchQueue.main.async {
                     completion(nil)
                 }
