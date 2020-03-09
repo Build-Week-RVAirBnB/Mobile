@@ -11,7 +11,10 @@ import FirebaseAuth
 import Firebase
 import CoreData
 
-class ListingViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+
+class ListingViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, AddListingsDelegate  {
+  
+   
     
     @IBOutlet weak var addListingButton: UIBarButtonItem!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -20,17 +23,19 @@ class ListingViewController: UIViewController, UICollectionViewDataSource, UICol
     // MARK - Properties
     private let listingController = ListingController()
     private var blockOperations: [BlockOperation] = []
-
+    
+    private let listing = Listing()
+    
     lazy var fetchedResultsController: NSFetchedResultsController<Listing> = {
         let fetchRequest: NSFetchRequest<Listing> = Listing.fetchRequest()
         fetchRequest.sortDescriptors = [
-            NSSortDescriptor(key: "listingName", ascending: true),
-            NSSortDescriptor(key: "image", ascending: false)
+            NSSortDescriptor(key: "listingName", ascending: true)
+//            NSSortDescriptor(key: "image", ascending: false)
         ]
         let moc = CoreDataStack.shared.mainContext
         let frc = NSFetchedResultsController(fetchRequest: fetchRequest,
                                              managedObjectContext: moc,
-                                             sectionNameKeyPath: "listingName",
+                                             sectionNameKeyPath: "identifier",
                                              cacheName: nil)
         frc.delegate = self
         try! frc.performFetch()
@@ -41,8 +46,8 @@ class ListingViewController: UIViewController, UICollectionViewDataSource, UICol
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        collectionView?.reloadData()
+        listingUpdated()
+        listingAdded()
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(doSomething), for: .valueChanged)
           collectionView.refreshControl = refreshControl
@@ -54,6 +59,15 @@ class ListingViewController: UIViewController, UICollectionViewDataSource, UICol
             handleLogout()
         }
     }
+    
+    func listingUpdated() {
+        collectionView.reloadData()
+       }
+    
+    func listingAdded() {
+        collectionView.reloadData()
+      }
+      
     
     @objc func doSomething(refreshControl: UIRefreshControl) {
         listingController.fetchListingsFromServer { (_) in
@@ -75,7 +89,7 @@ class ListingViewController: UIViewController, UICollectionViewDataSource, UICol
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! ListingCollectionViewCell
         
         let listing = fetchedResultsController.object(at: indexPath)
-    
+//        cell.delegate = self
         cell.locationName.text = listing.listingName
         cell.locationImage.image = listing.image?.toImage()
         cell.locationDescription.text = listing.listingDescription
@@ -99,24 +113,20 @@ class ListingViewController: UIViewController, UICollectionViewDataSource, UICol
         
         return cell
     }
+    
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        if segue.identifier == "DetailSegue", let detailVC = segue.destination as? ListingDetailViewController {
-            detailVC.delegate = self 
-        }
-        
         if segue.identifier == "DetailSegue" {
-            guard let selectedIndexPath = sender as? NSIndexPath else { return }
-            guard let detailVC = segue.destination as? ListingDetailViewController else { return }
-            
-            detailVC.delegate = self
-            detailVC.listing = fetchedResultsController.object(at: selectedIndexPath as IndexPath)
+            guard let detailVC = segue.destination as? ListingDetailViewController,
+            let sender = sender as?
+                UICollectionViewCell,
+            let indexPath = self.collectionView.indexPath(for: sender) else { return }
+            detailVC.listing = fetchedResultsController.object(at: indexPath)
             detailVC.listingController = listingController
-        }
 
-        if let addVC = segue.destination as? AddListingViewController {
-            addVC.listingController = listingController
+        } else if segue.identifier == "AddListingSegue" {
+            guard let addVC = segue.destination as? ListingDetailViewController else { return }
+            addVC.listingController = self.listingController
         }
     }
     
@@ -137,7 +147,12 @@ class ListingViewController: UIViewController, UICollectionViewDataSource, UICol
     @IBAction func addNewListingTapped(_ sender: Any) {
         
     }
+    //MARK: = UICollectionViewDelegate
     
+//    func listingAdded() {
+//        self.collectionView.reloadData()
+//    }
+//
 }
 
 extension ListingViewController: NSFetchedResultsControllerDelegate {
@@ -244,9 +259,4 @@ extension String {
     }
 }
 
-extension ListingViewController: ListingsDetailViewControllerDelegate {
-    
-    func fetchData() {
-        collectionView.reloadData()
-    }
-}
+

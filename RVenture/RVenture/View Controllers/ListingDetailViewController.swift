@@ -9,9 +9,7 @@
 import UIKit
 import CoreData
 
-protocol ListingsDetailViewControllerDelegate: class {
-    func fetchData()
-}
+
 
 class ListingDetailViewController: UIViewController {
     
@@ -24,12 +22,9 @@ class ListingDetailViewController: UIViewController {
     
      var listingController: ListingController?
     
-    weak var delegate: ListingsDetailViewControllerDelegate?
-    
     var listing: Listing? {
         didSet {
             updateViews()
-            
         }
     }
     
@@ -37,24 +32,15 @@ class ListingDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         updateViews()
-        delegate?.fetchData()
     }
         
         func updateViews() {
             guard isViewLoaded else { return }
-            if let listing = listing {
-                title = listing.listingName
-                locationImage.image = listing.image?.toImage()
-                locationName.text = listing.listingName
-                locationDescription.text = listing.listingDescription
-                locationPrice.text = listing.listingPrice
-                datesLabel.text = "\(listing.date ?? Date()) - \(listing.dateTo ?? Date())"
-            } else {
                 title = listing?.listingName ?? "RVenture"
-                locationName.text = "Idaho, USA"
-                locationDescription.text = "Your ultimate getaway"
-                locationPrice.text = "Afforable alternative"
-                datesLabel.text = "Start your RVenture"
-            }
+            locationImage.image = listing?.image?.toImage() ?? #imageLiteral(resourceName: "resize-2")
+                locationName.text = listing?.listingName ?? "RVenture"
+                locationDescription.text = listing?.listingDescription ?? "Start your RVenture"
+                locationPrice.text = listing?.listingPrice ?? "Afforable alternative"
+                datesLabel.text = "\(listing?.date ?? Date()) - \(listing?.dateTo ?? Date())"
     }
 }

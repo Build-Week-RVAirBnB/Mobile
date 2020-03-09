@@ -9,6 +9,11 @@
 import UIKit
 import Foundation
 
+protocol  AddListingsDelegate: AnyObject {
+    func listingAdded()
+    func listingUpdated()
+}
+
 class AddListingViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
     @IBOutlet weak var listingNameText: UITextField!
@@ -24,7 +29,7 @@ class AddListingViewController: UIViewController, UINavigationControllerDelegate
         }
     }
     var listingController: ListingController!
-    
+    weak var delegate: AddListingsDelegate?
     private var fromDatePicker: UIDatePicker?
     private var toDatePicker: UIDatePicker?
    
@@ -80,9 +85,12 @@ class AddListingViewController: UIViewController, UINavigationControllerDelegate
 //                listing.date = date
                 self.listingController.sendListingToServer(listing: listing)
                 self.listingController.saveImage(image: image)
+                self.delegate?.listingUpdated()
             } else {
                 let listing = Listing(listingName: name, listingDescription: description, listingPrice: price, date: date, dateTo: dateTolisting, image: image.toString())
                 self.listingController.sendListingToServer(listing: listing)
+                self.delegate?.listingAdded()
+              
             }
         }
         
